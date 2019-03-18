@@ -10,16 +10,16 @@ class ArtistList extends Component {
         }
     }
     render() {
-      return (
-        <div className="ArtistList">
+        return (
+            <div className="ArtistList">
                 {artists.map(artist => (
                     <div className= "Artist">
                         <Link to ={`/artists/id/${id}`}>{Artist}</Link>
-           </div>
+                    </div>
+            ))}
+            </div>
         )
-        )
-        }})
-          }
-          </div> 
+    }
+} 
 
 export default ArtistList;
