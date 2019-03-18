@@ -6,7 +6,7 @@ Beat HostR is a web app that hosts your music online! Here you can share your mu
 
 ## Component Hierarchy
 
-[Component Hierarchy](component-hierarchy.jpg)
+[Component Hierarchy](readme_imgs/component-hierarchy.jpg)
 
 ## Wireframes
 
