@@ -6,20 +6,23 @@ Beat HostR is a web app that hosts your music online! Here you can share your mu
 
 ## Component Hierarchy
 
-                                      App
-
-            Header/Nav                Body                              /Footer                          
-            -Logo/ProfileLink         /UserList                         -Copyright
-            -AppName                  /UserProfile/UploadForm/EditForm  -SocialLinks                 
-            -UserName                 /SignUpForm                       
-            /LoginForm                
-            -Settings                              
-
-
+[Component Hierarchy](component-hierarchy.jpg)
 
 ## Wireframes
 
+[Landing Page Wireframe](readme_imgs/landing-page.jpg)
 
+[Artist List Wireframe](readme_imgs/artist-list.jpg)
+
+[My Page Wireframe](readme_imgs/my-page.jpg)
+
+[Upload Song Wireframe](readme_imgs/upload_song.jpg)
+
+[Artist Profile Wireframe](readme_imgs/artist-profile.jpg)
+
+## Table Models
+
+[Table Model](readme_imgs/table.jpg)
 
 ## MVP
 
@@ -43,7 +46,7 @@ Beat HostR is a web app that hosts your music online! Here you can share your mu
 
 ## Anticipated Challenges
 
-- 
+- Creating a way for a user to upload their music
 
 ## Technologies used
 
@@ -59,7 +62,3 @@ Beat HostR is a web app that hosts your music online! Here you can share your mu
 - Heroku
 - Sequelize
 - Express
-
-## Code Snippet
-
-## Errors
