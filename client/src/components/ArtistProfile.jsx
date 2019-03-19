@@ -8,7 +8,7 @@ class ArtistProfile extends Component {
     super();
 
     this.state = {
-      albums: [{name: 'yea', genre: 'rock', id: 2}, {name: 'no', genre: 'roll', id: 3}],
+      albums: [{name: 'yea', genre: 'rock', id: 2}, {name: 'no', genre: 'roll', id: 3}, {name: 'yea', genre: 'rock', id: 2}],
       songsOfAlbum: [{name: 'oh yeaa', id: 1}, {name: 'oh nooo', id: 2}],
       isArtistUser: true,
       showMore: null,
@@ -30,9 +30,9 @@ class ArtistProfile extends Component {
     }
   }
 
-  handleClick() {
+  handleClick(album_id) {
     const id = this.props.match.params.id;
-    this.props.history.push(`/artists/${id}/album`);
+    this.props.history.push(`/artists/${id}/albumform/${album_id}`);
   }
 
   async getAlbums(artist) {
@@ -79,22 +79,24 @@ class ArtistProfile extends Component {
       <div className="artist-profile">
         <h1>Artist Profile</h1>
         { isArtistUser &&
-            <button onClick={this.handleClick}>Create Album</button>
+            <button onClick={() => this.handleClick(albums.length + 1)}>Create Album</button>
         }
         <div className="albumList">
-          {albums.map(album => (
-            <div className="album" key={album.id}>
-              <p className="album-name">Name: {album.name}</p>
-              <p className="album-genre">Genre: {album.genre}</p>
-              <button onClick={this.getSongs}>Show Songs</button>
-              { isArtistUser &&
-                <div>
-                  <button onClick={this.handleClick}>Edit Album</button>
-                  <button onClick={this.deleteAlbum}>Delete</button>
-                </div>
-              }
-            </div>
-          ))}
+          {albums.map((album, id) => {
+            return (
+              <div className="album" key={album.id}>
+                <p className="album-name">Name: {album.name}</p>
+                <p className="album-genre">Genre: {album.genre}</p>
+                <button onClick={this.getSongs}>Show Songs</button>
+                { isArtistUser &&
+                  <div>
+                    <button onClick={() => this.handleClick(id + 1)}>Edit Album</button>
+                    <button onClick={this.deleteAlbum}>Delete</button>
+                  </div>
+                }
+              </div>
+            )
+          })}
         </div>
       </div>
     );
