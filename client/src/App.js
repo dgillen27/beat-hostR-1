@@ -10,6 +10,7 @@ import Song from './components/Song';
 import EditAlbum from './components/EditAlbum';
 import EditSong from './components/EditSong';
 import ArtistList from './components/ArtistList';
+import FileUpload from './components/FileUpload'
 
 class App extends Component {
   constructor() {
@@ -30,6 +31,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
+        <Song />
         <Route exact path="/" component={Welcome}/>
         <Route exact path="/artists/" component={ArtistList}/>
         <Route exact path="/artists/:id" component={ArtistProfile}/>
