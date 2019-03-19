@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import { Link, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
+import Welcome from './components/Welcome';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import ArtistProfile from './components/ArtistProfile';
 import Welcome from './components/Welcome';
 import EditAlbum from './components/EditAlbum';
@@ -21,7 +24,7 @@ class App extends Component {
   // handleLoginButton() {
   //   this.props.history.push("/artists/id/:id")
   // }
-
+  
   componentDidMount() {
 
   }
@@ -30,9 +33,11 @@ class App extends Component {
     const { user, token } = this.state;
     return (
       <div className="App">
+        <Header />
         <main>
           <EditSong />
         </main>
+        <Footer />
       </div>
     );
   }
