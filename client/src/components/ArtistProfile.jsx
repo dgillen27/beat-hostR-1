@@ -31,7 +31,8 @@ class ArtistProfile extends Component {
   }
 
   handleClick() {
-    this.props.history.push("/artists/id/:id/album");
+    const id = this.props.match.params.id;
+    this.props.history.push(`/artists/${id}/album`);
   }
 
   async getAlbums(artist) {
