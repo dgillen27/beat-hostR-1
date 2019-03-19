@@ -35,7 +35,8 @@ class EditSong extends Component {
     }
     // const lastSong = await postSong(newSong);
     const id = this.props.match.params.id;
-    this.props.history.push(`/artists/${id}/album`)
+    const album_id = this.props.match.params.album_id;
+    this.props.history.push(`/artists/${id}/albumform/${album_id}`)
   }
 
 
