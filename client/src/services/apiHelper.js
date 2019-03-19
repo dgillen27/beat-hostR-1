@@ -9,6 +9,28 @@ const updateToken = (token) => {
   api.defaults.headers.common.authorization = `Bearer ${token}`;
 };
 
+const postUser = async (user) => {
+  try {
+    const resp = await api.post(`/users/`, user);
+    return resp.data;
+    updateToken(resp.data.token);
+  }
+  catch(e) {
+    console.error(e);
+  }
+}
+
+const loginUser = async (user) => {
+  try {
+    const resp = await api.post(`/users/login`, user);
+    return resp.data;
+    updateToken(resp.data.token);
+  }
+  catch(e) {
+    console.error(e);
+  }
+}
+
 const getAllArtists = async () => {
   try {
     const resp = await api(`/artists/`);
@@ -97,5 +119,7 @@ export {
   postAlbum,
   editAlbum,
   deleteSong,
-  postSong
+  postSong,
+  postUser,
+  loginUser
 }

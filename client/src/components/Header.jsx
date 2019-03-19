@@ -12,12 +12,11 @@ class Header extends Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleLogin = this.handleLogin.bind(this)
   }
 
-  handleChange(e) {
-    e.preventDefault();
-    const { name, value } = e.target
+  handleChange(ev) {
+    ev.preventDefault();
+    const { name, value } = ev.target
     this.setState(prevState => ({
       loginData: {
         ...prevState.loginData,
@@ -26,15 +25,10 @@ class Header extends Component {
     }))
   }
 
-  async handleSubmit(e) {
-    e.preventDefault();
+  async handleSubmit(ev) {
+    ev.preventDefault();
     const { loginData } = this.state
-    await this.handleLogin(loginData);
-  }
-
-  handleLogin(loginData){
-    {/*Soon to login user*/}
-    console.log(loginData);
+    // const lastUser = await loginUser(loginData);
   }
 
   render() {

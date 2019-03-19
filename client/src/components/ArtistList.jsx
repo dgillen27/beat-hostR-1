@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { withRouter } from 'react-router';
 
 class ArtistList extends Component {
   constructor() {
@@ -10,10 +10,11 @@ class ArtistList extends Component {
     }
 
     this.getArtists = this.getArtists.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick() {
-    this.props.history.push("/login")
+    this.props.history.push("/artists/id/:id")
   }
 
   async getArtists() {
@@ -33,7 +34,7 @@ class ArtistList extends Component {
       <div className="artistList">
         {artists.map(artist => (
           <div className="artist" key={artist.id}>
-            <p>{artist.name}</p>
+            <div onClick={this.handleClick}>{artist.name}</div>
           </div>
         ))}
       </div>
@@ -41,4 +42,4 @@ class ArtistList extends Component {
   }
 }
 
-export default ArtistList;
+export default withRouter(ArtistList);

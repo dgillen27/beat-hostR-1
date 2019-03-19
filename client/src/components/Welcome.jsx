@@ -14,12 +14,11 @@ class Welcome extends Component {
       }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.makeUser = this.makeUser.bind(this)
   }
 
-  handleChange(e) {
-    e.preventDefault();
-    const { name, value } = e.target
+  handleChange(ev) {
+    ev.preventDefault();
+    const { name, value } = ev.target
     this.setState(prevState => ({
       registerData: {
         ...prevState.registerData,
@@ -28,15 +27,11 @@ class Welcome extends Component {
     }))
   }
 
-  async handleSubmit(e) {
-    e.preventDefault();
+  async handleSubmit(ev) {
+    ev.preventDefault();
     const { registerData } = this.state
-    await this.makeUser(registerData);
-  }
-
-  makeUser(registerData) {
-    {/*This will eventually post a user*/}
-    console.log(registerData);
+    // const lastUser = await postUser(registerData);
+    this.props.history.push("/artists/");
   }
 
   render() {
