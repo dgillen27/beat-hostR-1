@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, withRouter } from 'react-router-dom';
 import EditSong from './EditSong';
+import ArtistProfile from './ArtistProfile';
 
 class EditAlbum extends Component {
   constructor() {
@@ -20,6 +21,11 @@ class EditAlbum extends Component {
     this.getSongs = this.getSongs.bind(this);
     this.deleteSong = this.deleteSong.bind(this);
     this.createSong = this.createSong.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit() {
+    this.props.history.push("/artists/id/:id")
   }
 
   handleChange(ev) {
@@ -33,25 +39,23 @@ class EditAlbum extends Component {
     }
 
   async handleNewSubmit(ev) {
-    ev.preventDefault();
     const { name, genre } = this.state.albumForm;
     const newAlbum = {
       name,
       genre
     }
     // const lastAlbum = await postAlbum(newAlbum);
-    // redirect to artistProfile page
+    this.handleSubmit();
   }
 
   async handleEditSubmit(ev) {
-    ev.preventDefault();
     const { name, genre } = this.state.albumForm;
     const newAlbum = {
       name,
       genre
     }
     // const lastAlbum = await editAlbum(newAlbum);
-    // redirect to artistProfile page
+    this.handleSubmit();
   }
 
   async getSongs(ev) {
@@ -74,8 +78,8 @@ class EditAlbum extends Component {
     // }) may need to work on this more
   }
 
-  async createSong() {
-    // route to editSong component
+  createSong() {
+    this.props.history.push("/artists/id/:id/album/:album_id")
   }
 
   componentDidMount() {
@@ -93,7 +97,7 @@ class EditAlbum extends Component {
     return (
       <div className="edit-album">
         <h1>Edit/Create Album</h1>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleEditSubmit}>
 
           <label htmlFor="name">
             Name:
@@ -119,7 +123,7 @@ class EditAlbum extends Component {
 
           <input
             type="submit"
-            onSubmit={this.handleSubmit}
+            onSubmit={this.handleEditSubmit}
             />
         </form>
         <div className="song-list">
@@ -137,4 +141,4 @@ class EditAlbum extends Component {
   }
 }
 
-export default EditAlbum;
+export default withRouter(EditAlbum);
