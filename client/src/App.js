@@ -21,10 +21,6 @@ class App extends Component {
     }
   }
 
-  // handleLoginButton() {
-  //   this.props.history.push("/artists/id/:id")
-  // }
-
   componentDidMount() {
 
   }
