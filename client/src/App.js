@@ -6,7 +6,7 @@ import Welcome from './components/Welcome';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ArtistProfile from './components/ArtistProfile';
-import Welcome from './components/Welcome';
+import Song from './components/Song';
 import EditAlbum from './components/EditAlbum';
 import EditSong from './components/EditSong';
 import ArtistList from './components/ArtistList';
@@ -24,7 +24,7 @@ class App extends Component {
   // handleLoginButton() {
   //   this.props.history.push("/artists/id/:id")
   // }
-  
+
   componentDidMount() {
 
   }
@@ -35,7 +35,7 @@ class App extends Component {
       <div className="App">
         <Header />
         <main>
-          <EditSong />
+          <ArtistProfile />
         </main>
         <Footer />
       </div>
