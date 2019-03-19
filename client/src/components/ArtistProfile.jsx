@@ -55,11 +55,11 @@ class ArtistProfile extends Component {
 
   }
 
-  // expandSong(idx) {
-  //   this.setState(prevState => ({
-  //     showMore: (idx === prevState.showMore) ? null: idx
-  //   }))
-  // }
+  expandSong(idx) {
+    // this.setState(prevState => ({
+    //   showMore: (idx === prevState.showMore) ? null: idx
+    // }))
+  }
 
   componentDidMount() {
     // this.checkUser();
