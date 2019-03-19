@@ -2,24 +2,43 @@ import React, { Component } from 'react';
 
 
 class ArtistList extends Component {
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.state = {
-            artists: ['steve', 'jeeve', 'beeve', 'cheeve']
-        }
+    this.state = {
+      artists: [{name: 'sam', id: 1}, {name: 'lee', id: 2}]
     }
-    render() {
-      return (
-        <div className="artistList" key={this.state.artists}>
-                {this.state.artists.map(artist => (
-                    <div className="artist" key="">
-                        <p>{artist}</p>
-                   </div>
-                ))}
-        </div>
-      );
-    }
+
+    this.getArtists = this.getArtists.bind(this);
   }
 
-  export default ArtistList;
+  handleClick() {
+    this.props.history.push("/login")
+  }
+
+  async getArtists() {
+    // const artists = await getAllArtists();
+    // this.setState({
+    //   artists
+    // })
+  }
+
+  componentDidMount() {
+    // this.getArtists();
+  }
+
+  render() {
+    const { artists } = this.state;
+    return (
+      <div className="artistList">
+        {artists.map(artist => (
+          <div className="artist" key={artist.id}>
+            <p>{artist.name}</p>
+          </div>
+        ))}
+      </div>
+    );
+  }
+}
+
+export default ArtistList;
