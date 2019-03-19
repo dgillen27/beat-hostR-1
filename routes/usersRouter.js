@@ -20,6 +20,16 @@ const buildAuthResponse = (user) => {
   };
 };
 
+usersRouter.get('/', async (req, res) => {
+  try {
+    const users =  await User.findAll();
+    res.json({ users });
+  } catch(e) {
+    console.log(e);
+    res.stats(500).send(e.message);
+  }
+});
+
 usersRouter.post('/', async (req, res) => {
   try {
     const { password, email, artist_name } = req.body;
@@ -39,27 +49,66 @@ usersRouter.post('/', async (req, res) => {
   };
 });
 
-usersRouter.get('/', async (req, res) => {
+usersRouter.post('/login', async (req, res) => {
   try {
-    const users =  await User.findAll();
-    res.json({ users });
+    const { email, password } = req.body;
+    const user = await User.findOne({
+      where: {
+        email
+      },
+    });
+
+    if(await isAuthorized(password, user.password_digest)) {
+      const respData = buildAuthResponse(user);
+      res.json({ ...respData })
+    } else {
+      res.status(401).send(`Invalid Credentials. BEGONE!`);
+    }
   } catch(e) {
     console.log(e);
-    res.stats(401).send(e.message);
+    res.status(500).send(e.message);
   }
-});
+})
 
-usersRouter.get('/id/:id', async (req, res) => {
+usersRouter.get('/user-id/:id', async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id);
     res.json({ user });
   } catch(e) {
     console.log(e);
-    res.status(401).send(e.message);
+    res.status(500).send(e.message);
+  };
+});
+
+usersRouter.put('/user-id/:id', async (req, res) => {
+  try {
+    const { password, email, artist_name } = req.body;
+    const user = await User.findByPk(req.params.id);
+    if(await isAuthorized(password, user.password_digest)) {
+      const updatedUser = await user.update({ email, artist_name });
+      const respData = buildAuthResponse(updatedUser);
+      res.json({ ...respData });
+    } else {
+      res.status(401).send(`Invalid Credentials. BEGONE!`);
+    }
+  } catch(e) {
+    console.log(e);
+    res.status(500).send(e.message);
   }
 })
 
-usersRouter.use('/id/:id/albums', (req, res, next) => {
+usersRouter.delete('/user-id/:id', async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.id);
+    const resp = await user.destroy();
+    res.json({ message: resp });
+  } catch(e) {
+    console.log(e);
+    res.status(500).send(e.message);
+  };
+});
+
+usersRouter.use('/user-id/:id/albums', (req, res, next) => {
   res.locals.userId = req.params.id;
   next()
 },  albumsRouter);

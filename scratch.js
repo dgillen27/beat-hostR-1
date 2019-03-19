@@ -4,9 +4,10 @@ const BASE_URL = `http://localhost:4000`;
 
 const test = async () => {
   try {
-    const resp = await axios.post(`${BASE_URL}/users/id/1/albums`, {
-      title: 'newAlbum',
-      genre: 'tester',
+    const resp = await axios.post(`${BASE_URL}/users/login`, {
+      artist_name: 'testuserupdated',
+      email: 'tester@email',
+      password: 'test',
     });
     console.log(resp.data);
   } catch(e) {
