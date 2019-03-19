@@ -3,27 +3,27 @@ const { User, Album, Song } = require('./models');
 //////////////////////////////////////
 const main = async () => {
 
+  const users = [];
+
   for(let i = 1; i <= 10; i++) {
-    const i = await User.create({
+    users[i] = await User.create({
       email: `user${i}@email.com`,
       password_digest: `user${i}`,
       artist_name: `user${i}`
-    })
+    });
+  };
+
+  const albums = [];
+
+  for(let i = 0; i < users.length; i++) {
+    for(let j = 1; j <= 3; j++) {
+      albums[i + j]
+    }
   }
 
   //////////////////////////////////////////
 
-  const album1 = await user1.createAlbum({
-    title: 'user1 album1',
-    genre: 'genre',
-  });
-
   //////////////////////////////////////////
-
-  const song1 = await album1.createSong({
-    title: 'song1',
-    file_url: 'locatedhere',
-  });
 
 }
 

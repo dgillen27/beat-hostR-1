@@ -9,6 +9,9 @@
     "resetDb": "node resetDb.js",
     "start": "node server.js"
   },
+  "nodemonConfig": {
+  "ignore": ["client/*", "node_modules/*"]
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/BrunoCappelleti/beat-hostR"
