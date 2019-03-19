@@ -31,7 +31,7 @@ class ArtistProfile extends Component {
   }
 
   handleClick() {
-    this.props.history.push("/edit")
+    this.props.history.push("/artists/id/:id/album");
   }
 
   async getAlbums(artist) {
@@ -52,7 +52,11 @@ class ArtistProfile extends Component {
 
   async deleteAlbum() {
     // const song = await removeAlbum();
-
+    // this.setState({
+    //   albums: this.state.albums.filter(album => (
+    //     album !== ev.target.value
+    //   ))
+    // }) may need to work on this more
   }
 
   expandSong(idx) {
@@ -74,15 +78,7 @@ class ArtistProfile extends Component {
       <div className="artist-profile">
         <h1>Artist Profile</h1>
         { isArtistUser &&
-          <div>
-            <Link to="/artists/:artist_id/album/:id">Create Album</Link>
-            <Route exact path="/artists/:artist_id/album/:id" render={(props) => (
-              <EditAlbum
-                {...props}
-                user={user}
-                token={token} />
-            )}/>
-          </div>
+            <button onClick={this.handleClick}>Create Album</button>
         }
         <div className="albumList">
           {albums.map(album => (
@@ -92,7 +88,7 @@ class ArtistProfile extends Component {
               <button onClick={this.getSongs}>Show Songs</button>
               { isArtistUser &&
                 <div>
-                  <button onClick={this.handleClick}>Edit</button>
+                  <button onClick={this.handleClick}>Edit Album</button>
                   <button onClick={this.deleteAlbum}>Delete</button>
                 </div>
               }
@@ -104,4 +100,4 @@ class ArtistProfile extends Component {
   }
 }
 
-export default ArtistProfile;
+export default withRouter(ArtistProfile);

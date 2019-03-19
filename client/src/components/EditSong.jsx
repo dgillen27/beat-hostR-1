@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, withRouter } from 'react-router-dom';
 
 class EditSong extends Component {
   constructor() {
@@ -34,7 +34,7 @@ class EditSong extends Component {
       file_url
     }
     // const lastSong = await postSong(newSong);
-    // redirect user to editalbum component
+    this.props.history.push("/artists/id/:id/album")
   }
 
 
@@ -80,4 +80,4 @@ class EditSong extends Component {
   }
 }
 
-export default EditSong;
+export default withRouter(EditSong);

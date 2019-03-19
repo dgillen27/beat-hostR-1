@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Welcome from './components/Welcome';
 import Header from './components/Header';
@@ -34,13 +34,15 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <main>
-          <ArtistProfile />
-        </main>
+        <Route exact path="/" component={Welcome}/>
+        <Route exact path="/artists/" component={ArtistList}/>
+        <Route exact path="/artists/id/:id" component={ArtistProfile}/>
+        <Route exact path="/artists/id/:id/album" component={EditAlbum}/>
+        <Route exact path="/artists/id/:id/album/:album_id" component={EditSong}/>
         <Footer />
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
