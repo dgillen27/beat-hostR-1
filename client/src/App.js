@@ -32,9 +32,9 @@ class App extends Component {
         <Header />
         <Route exact path="/" component={Welcome}/>
         <Route exact path="/artists/" component={ArtistList}/>
-        <Route exact path="/artists/id/:id" component={ArtistProfile}/>
-        <Route exact path="/artists/id/:id/album" component={EditAlbum}/>
-        <Route exact path="/artists/id/:id/album/:album_id" component={EditSong}/>
+        <Route exact path="/artists/:id" component={ArtistProfile}/>
+        <Route exact path="/artists/:id/album" component={EditAlbum}/>
+        <Route exact path="/artists/:id/album/:album_id" component={EditSong}/>
         <Footer />
       </div>
     );

@@ -13,8 +13,8 @@ class ArtistList extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
-    this.props.history.push("/artists/id/:id")
+  handleClick(id) {
+    this.props.history.push(`/artists/${id}`)
   }
 
   async getArtists() {
@@ -34,7 +34,7 @@ class ArtistList extends Component {
       <div className="artistList">
         {artists.map(artist => (
           <div className="artist" key={artist.id}>
-            <div onClick={this.handleClick}>{artist.name}</div>
+            <div onClick={() => this.handleClick(artist.id)}>{artist.name}</div>
           </div>
         ))}
       </div>

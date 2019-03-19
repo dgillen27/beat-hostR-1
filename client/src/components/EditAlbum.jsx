@@ -25,7 +25,8 @@ class EditAlbum extends Component {
   }
 
   handleSubmit() {
-    this.props.history.push("/artists/id/:id")
+    const id = this.props.match.params.id;
+    this.props.history.push(`/artists/${id}`);
   }
 
   handleChange(ev) {
@@ -78,8 +79,9 @@ class EditAlbum extends Component {
     // }) may need to work on this more
   }
 
-  createSong() {
-    this.props.history.push("/artists/id/:id/album/:album_id")
+  createSong(album_id) {
+    const id = this.props.match.params.id;
+    this.props.history.push(`/artists/${id}/album/${album_id}`)
   }
 
   componentDidMount() {
@@ -128,7 +130,7 @@ class EditAlbum extends Component {
         </form>
         <div className="song-list">
           <div>All Songs</div>
-          <button onClick={this.createSong}>Add Song</button>
+          <button onClick={() => this.createSong(3)}>Add Song</button>
           {songsOfAlbum.map(song => (
             <div className="artist" key={song.id}>
               <p>{song.name}</p>

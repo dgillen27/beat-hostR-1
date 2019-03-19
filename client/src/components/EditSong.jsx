@@ -34,7 +34,8 @@ class EditSong extends Component {
       file_url
     }
     // const lastSong = await postSong(newSong);
-    this.props.history.push("/artists/id/:id/album")
+    const id = this.props.match.params.id;
+    this.props.history.push(`/artists/${id}/album`)
   }
 
 
