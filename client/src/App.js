@@ -1,11 +1,38 @@
 import React, { Component } from 'react';
 import './App.css';
+import { Link, Route } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import ArtistProfile from './components/ArtistProfile';
+import Welcome from './components/Welcome';
+import EditAlbum from './components/EditAlbum';
+import EditSong from './components/EditSong';
+import ArtistList from './components/ArtistList';
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      user: {id: 1},
+      token: 'hello',
+    }
+  }
+
+  // handleLoginButton() {
+  //   this.props.history.push("/artists/id/:id")
+  // }
+
+  componentDidMount() {
+
+  }
+
   render() {
+    const { user, token } = this.state;
     return (
       <div className="App">
-        <h1>Welcome to the Beat HostR</h1>
+        <main>
+          <EditSong />
+        </main>
       </div>
     );
   }
