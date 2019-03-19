@@ -2,12 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
 const cors = require('cors');
-const PORT = porcess.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 
 const app = express();
 
 app.use(bodyParser.json());
-app.use(logger());
+app.use(logger('combined'));
 app.use(cors());
 
 app.get('/', (req, res) => {
