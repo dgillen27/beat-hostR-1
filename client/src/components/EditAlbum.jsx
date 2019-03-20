@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link, Route, withRouter } from 'react-router-dom';
 import EditSong from './EditSong';
 import ArtistProfile from './ArtistProfile';
+import { postAlbum, editAlbum, getAlbumSongs, deleteSong } from '../services/apiHelper';
+
 
 class EditAlbum extends Component {
   constructor() {
@@ -9,10 +11,10 @@ class EditAlbum extends Component {
 
     this.state = {
       albumForm: {
-        name: 'hello',
-        genre: 'my',
+        name: '',
+        genre: '',
       },
-      songsOfAlbum: [{name: 'oh yeaa', id: 1}, {name: 'oh yeaa', id: 1}, {name: 'oh nooo', id: 2}]
+      songsOfAlbum: [{name: 'oh yeaa', id: 1}, {name: 'oh yeaa', id: 3}, {name: 'oh nooo', id: 2}]
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -70,13 +72,12 @@ class EditAlbum extends Component {
 
   async deleteSong(ev) {
     ev.preventDefault();
-
     // const deletedSong = await deleteSong();
-    // this.setState({
-    //   songsOfAlbum: this.state.songsOfAlbum.filter(song => (
-    //     song !== ev.target.value
-    //   ))
-    // }) may need to work on this more
+    this.setState({
+      songsOfAlbum: this.state.songsOfAlbum.filter(song => (
+        song.id !== Number(ev.target.id)
+      ))
+    })
   }
 
   createSong(song_id) {
@@ -135,7 +136,7 @@ class EditAlbum extends Component {
           {songsOfAlbum.map(song => (
             <div className="artist" key={song.id}>
               <p>{song.name}</p>
-              <button onClick={this.deleteSong}>Delete</button>
+              <button id={song.id} onClick={(ev) => this.deleteSong(ev)}>Delete</button>
             </div>
           ))}
         </div>
