@@ -1,65 +1,36 @@
 import React, { Component } from 'react';
-import { postUser } from '../services/apiHelper';
 
 class Welcome extends Component {
   constructor(){
     super();
-
-      this.state = {
-        registerData: {
-          userName: '',
-          email: '',
-          password: ''
-        }
-      }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  handleChange(ev) {
-    ev.preventDefault();
-    const { name, value } = ev.target
-    this.setState(prevState => ({
-      registerData: {
-        ...prevState.registerData,
-        [name]: value
-      }
-    }))
-  }
-
-  async handleSubmit(ev) {
-    ev.preventDefault();
-    const { registerData } = this.state
-    // const lastUser = await postUser(registerData);
-    this.props.history.push("/artists/");
   }
 
   render() {
+    const { handleRegisterSubmit, handleRegisterChange, registerData } = this.props;
     return(
       <div className="welcome">
         <h2>Welcome Component</h2>
-        <button type="button">Enter as Guest</button>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={handleRegisterSubmit}>
           <input
-            onChange={this.handleChange}
+            onChange={handleRegisterChange}
             placeholder='Username'
             type="text"
             name="userName"
-            value={this.userName} />
+            value={registerData.userName} />
           <input
-            onChange={this.handleChange}
+            onChange={handleRegisterChange}
             placeholder='Email'
             type="text"
             name="email"
-            value={this.email} />
+            value={registerData.email} />
           <input
-            onChange={this.handleChange}
+            onChange={handleRegisterChange}
             placeholder='Password'
             type="text"
             name="password"
-            value={this.password} />
+            value={registerData.password} />
           <input
-            onSubmit={this.handleSubmit}
+            onSubmit={handleRegisterSubmit}
             type="submit"
             name="submit"
             value="submit" />

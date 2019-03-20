@@ -1,75 +1,36 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { loginUser } from '../services/apiHelper';
 
 class Header extends Component {
   constructor(){
     super();
-
-    this.state = {
-      loginData: {
-        email: '',
-        password: ''
-      },
-      isLogin: false,
-      currentUser: {}
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.logOut = this.logOut.bind(this);
   }
 
-  handleChange(ev) {
-    ev.preventDefault();
-    const { name, value } = ev.target
-    this.setState(prevState => ({
-      loginData: {
-        ...prevState.loginData,
-        [name]: value
-      }
-    }))
-  }
-
-  async handleSubmit(ev) {
-    ev.preventDefault();
-    const { loginData } = this.state
-    // const currentUser = await loginUser(loginData);
-    this.setState({
-      isLogin: true,
-      currentUser: {artist_name: 'eric'} //change
-    });
-    this.props.history.push(`/artists`);
-  }
-
-  logOut(ev) {
-    this.setState({
-      isLogin: false,
-      currentUser: {}
-    });
-    this.props.history.push(`/`);
+  handleClick(id) {
+    this.props.history.push(`/artists/${id}`)
   }
 
   render() {
-    const { isLogin, currentUser } = this.state;
+    const { isLogin, user, token, loginData, handleSubmit, handleChange, logOut } = this.props;
     return(
       <div className="login">
         <h2>Header</h2>
         { !isLogin &&
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <input
-              onChange={this.handleChange}
+              onChange={handleChange}
               placeholder='Email'
               type="text"
               name="email"
-              value={this.email} />
+              value={loginData.email} />
             <input
-              onChange={this.handleChange}
+              onChange={handleChange}
               placeholder='Password'
               type="text"
               name="password"
-              value={this.password} />
+              value={loginData.password} />
             <input
-              onSubmit={this.handleSubmit}
+              onSubmit={handleSubmit}
               type="submit"
               name="submit"
               value="submit" />
@@ -78,10 +39,10 @@ class Header extends Component {
         {
           isLogin &&
           <div>
-            <div>{currentUser.artist_name}</div>
-            <div onClick={(ev) => this.logOut(ev)}>Sign out</div>
+            <div>{user.artist_name}</div>
+            <div onClick={() => this.handleClick(user.id)}>My Profile</div>
+            <div onClick={(ev) => logOut(ev)}>Sign out</div>
           </div>
-
         }
       </div>
     )

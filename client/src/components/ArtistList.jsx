@@ -17,7 +17,7 @@ class ArtistList extends Component {
   handleClick(id) {
     this.props.history.push(`/artists/${id}`)
   }
-
+  
   async getArtists() {
     // const artists = await getAllArtists();
     // this.setState({
