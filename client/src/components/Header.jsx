@@ -34,11 +34,11 @@ class Header extends Component {
   render() {
     return(
       <div className="login">
-        <h2>Header</h2>
+        <h2>Beat HostR</h2>
         <form onSubmit={this.handleSubmit}>
           <input onChange={this.handleChange} placeholder='Email' type="text" name="email" value={this.email} />
           <input onChange={this.handleChange} placeholder='Password' type="text" name="password" value={this.password} />
-          <input onSubmit={this.handleSubmit} type="submit" name="submit" value="submit" />
+          <button onSubmit={this.handleSubmit} placeholder="submit" type="submit" name="submit" value="submit">Submit</button>
         </form>
       </div>
     )

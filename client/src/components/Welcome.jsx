@@ -37,14 +37,18 @@ class Welcome extends Component {
   render() {
     return(
       <div className="welcome">
-        <h2>Welcome Component</h2>
-        <button type="button">Enter as Guest</button>
+        <h2>Register Here</h2>
         <form onSubmit={this.handleSubmit}>
-          <input onChange={this.handleChange} placeholder='Username' type="text" name="userName" value={this.userName} />
-          <input onChange={this.handleChange} placeholder='Email' type="text" name="email" value={this.email} />
-          <input onChange={this.handleChange} placeholder='Password' type="text" name="password" value={this.password} />
-          <input onSubmit={this.handleSubmit} type="submit" name="submit" value="submit" />
+          <h3>Name</h3>
+          <input onChange={this.handleChange} type="text" name="userName" value={this.userName} />
+          <h3>Email</h3>
+          <input onChange={this.handleChange} type="text" name="email" value={this.email} />
+          <h3>Password</h3>
+          <input onChange={this.handleChange} type="text" name="password" value={this.password} />
+          <h3>Submit or Enter as Guest</h3>
+          <button onSubmit={this.handleSubmit} type="submit" name="submit" value="submit">Submit</button>
         </form>
+        <button id="guest" type="button">Enter as Guest</button>
       </div>
     )
   }

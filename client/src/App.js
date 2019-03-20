@@ -31,7 +31,6 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <Song />
         <Route exact path="/" component={Welcome}/>
         <Route exact path="/artists/" component={ArtistList}/>
         <Route exact path="/artists/:id" component={ArtistProfile}/>
