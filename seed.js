@@ -38,7 +38,7 @@ const main = async () => {
     for (let j = 0; j < songsPerAlbum; j++) {
       songs[(i * songsPerAlbum) + j] = await albums[i].createSong({
         title: `album${i} song${j}`,
-        file_url: `song${i}located${j}here${i * songsPerAlbum + j}`,
+        file_url: `https://s3.amazonaws.com/beathostr/bucketFolder/1553040082067-lg.m4a`,
       });
     };
   };

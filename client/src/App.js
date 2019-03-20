@@ -20,22 +20,21 @@ class App extends Component {
     this.state = {
       user: {},
       token: '',
-      isLogin: false,
       loginData: {
         email: '',
-        password: ''
+        password: '',
       },
       registerData: {
         artist_name: '',
         email: '',
-        password: ''
-      }
+        password: '',
+      },
     }
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
     this.handleRegisterChange = this.handleRegisterChange.bind(this);
-    this.handleRegisterSubmit = this.handleRegisterSubmit.bind(this);
+    this.handleRegister = this.handleRegister.bind(this);
     this.logOut = this.logOut.bind(this);
   }
 
@@ -50,19 +49,19 @@ class App extends Component {
     }))
   }
 
-  async handleSubmit(ev) {
+  async handleLogin(ev) {
     ev.preventDefault();
     const { loginData } = this.state
-    // const currentUser = await loginUser(loginData);
+    const resp = await loginUser(loginData);
     this.setState({
-      isLogin: true,
-      user: {id: 5}, //change
+      user: resp.user,
+      token: resp.token,
       loginData: {
         email: '',
         password: ''
       }
     });
-    this.props.history.push(`/artists`);
+    this.props.history.push(`/users`);
   }
 
   handleRegisterChange(ev) {
@@ -76,26 +75,26 @@ class App extends Component {
     }))
   }
 
-  async handleRegisterSubmit(ev) {
+  async handleRegister(ev) {
     ev.preventDefault();
     const { registerData } = this.state
-    // const lastUser = await postUser(registerData);
+    const resp = await postUser(registerData);
     this.setState({
-      isLogin: true,
-      user: {artist_name: 'eric'}, //change
+      token: resp.token,
+      user: resp.user,
       registerData: {
         email: '',
         password: '',
         artist_name: '',
       }
     })
-    this.props.history.push("/artists/");
+    this.props.history.push("/users");
   }
 
   logOut(ev) {
     this.setState({
-      isLogin: false,
-      user: {}
+      user: {},
+      token: '',
     });
     this.props.history.push(`/`);
   }
@@ -104,44 +103,43 @@ class App extends Component {
   }
 
   render() {
-    const { user, token, isLogin, loginData, registerData } = this.state;
+    const { user, token, registerData, loginData } = this.state;
     return (
       <div className="App">
         <Header
           user={user}
           token={token}
-          isLogin={isLogin}
           loginData={loginData}
-          handleSubmit={this.handleSubmit}
+          handleLogin={this.handleLogin}
           handleChange={this.handleChange}
           logOut={this.logOut}
           />
         <Route exact path="/" render={() => (
           <Welcome
             handleRegisterChange={this.handleRegisterChange}
-            handleRegisterSubmit={this.handleRegisterSubmit}
+            handleRegister={this.handleRegister}
             registerData={registerData}
             />
         )}/>
-        <Route exact path="/artists/" render={(props) => (
+        <Route exact path="/users/" render={(props) => (
           <ArtistList
             user={user}
             token={token}
             />
         )}/>
-        <Route exact path="/artists/:id" render={(props) => (
+        <Route exact path="/users/:userId" render={(props) => (
           <ArtistProfile
             user={user}
             token={token}
             />
         )}/>
-        <Route exact path="/artists/:id/albumform/:album_id" render={(props) => (
+        <Route exact path="/users/:userId/albumform/:albumId" render={(props) => (
           <EditAlbum
             user={user}
             token={token}
             />
         )}/>
-        <Route exact path="/artists/:id/albumform/:album_id/songform/:song_id" render={(props) => (
+        <Route exact path="/users/:userId/albumform/:albumId/songform/:songId" render={(props) => (
           <EditSong
             user={user}
             token={token}

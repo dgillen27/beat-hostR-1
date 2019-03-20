@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, Route, withRouter } from 'react-router-dom';
 import EditSong from './EditSong';
 import ArtistProfile from './ArtistProfile';
-import { postAlbum, editAlbum, getAlbumSongs, deleteSong } from '../services/apiHelper';
+import { getAlbum } from '../services/apiHelper';
 
 
 class EditAlbum extends Component {
@@ -13,6 +13,7 @@ class EditAlbum extends Component {
       albumForm: {
         title: '',
         genre: '',
+        albumId: '',
       },
       songsOfAlbum: [{title: 'oh yeaa', id: 1}, {title: 'oh yeaa', id: 3}, {title: 'oh nooo', id: 2}]
     }
@@ -27,8 +28,8 @@ class EditAlbum extends Component {
   }
 
   handleSubmit() {
-    const id = this.props.match.params.id;
-    this.props.history.push(`/artists/${id}`);
+    const userId = this.props.match.params.userId;
+    this.props.history.push(`/users/${userId}`);
   }
 
   handleChange(ev) {
@@ -86,13 +87,21 @@ class EditAlbum extends Component {
     this.props.history.push(`/artists/${id}/albumform/${album_id}/songform/${song_id}`)
   }
 
-  componentDidMount() {
-    // this.setState({
-    //   albumForm: {
-    //     title: {this.props.title}
-    //     genre: {this.props.genre}
-    //   }
-    // })
+  async checkForCreate() {
+    if (this.state.albumForm.albumId !== 'create') {
+      const album = await getAlbum(this.props.match.params.userId, this.state.albumForm.albumId);
+      console.log(album);
+    }
+  }
+
+  async componentDidMount() {
+    const albumId = this.props.match.albumId;
+    this.setState({
+      albumForm: {
+        albumId
+      }
+    });
+    await this.checkForCreate();
   }
 
   render() {

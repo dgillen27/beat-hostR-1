@@ -11,12 +11,12 @@ class Header extends Component {
   }
 
   render() {
-    const { isLogin, user, token, loginData, handleSubmit, handleChange, logOut } = this.props;
+    const { user, token, loginData, handleLogin, handleChange, logOut } = this.props;
     return(
       <div className="login">
         <h2>Beat HostR</h2>
-        { !isLogin &&
-          <form onSubmit={handleSubmit}>
+        { !token &&
+          <form onSubmit={handleLogin}>
             <input
               onChange={handleChange}
               placeholder='Email'
@@ -30,14 +30,14 @@ class Header extends Component {
               name="password"
               value={loginData.password} />
             <button
-              onSubmit={handleSubmit}
+              onSubmit={handleLogin}
               type="submit"
               name="submit"
               value="submit" />
           </form>
         }
         {
-          isLogin &&
+          token &&
           <div>
             <div>{user.artist_name}</div>
             <div onClick={() => this.handleClick(user.id)}>My Profile</div>
