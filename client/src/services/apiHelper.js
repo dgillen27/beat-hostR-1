@@ -12,7 +12,7 @@ const api = axios.create({
 });
 
 //we will talk about why I did this
-const apiAuth = () => {
+const apiAuth = (token) => {
   const apiAuth = axios.create({
     baseURL: 'http://localhost:4000',
     headers: {
@@ -37,7 +37,7 @@ const postUser = async (user) => {
   try {
     const resp = await api.post(`/users`, user);
     return resp.data;
-//we should see about this
+//we agree this is the best way, but we need to figure logout
     updateToken(resp.data.token);
   } catch(e) {
     console.error(e);
@@ -56,9 +56,18 @@ const loginUser = async (user) => {
 };
 
 //changed name of function to get all users
-const getAllUsers = async () => {
+const getUsers = async () => {
   try {
     const resp = await api(`/users`);
+    return resp.data;
+  } catch(e) {
+    console.error(e);
+  };
+};
+
+const getUser = async (userId) => {
+  try {
+    const resp = await api(`/users/user-id/${userId}`);
     return resp.data;
   } catch(e) {
     console.error(e);
@@ -104,6 +113,16 @@ const postAlbum = async (userId, newAlbum) => {
   };
 };
 
+//get specific album
+const getAlbum = async (userId, albumId) => {
+  try {
+    const resp = await api(`user/user-id/${userId}/albums/album-id/${albumId}`)
+    return resp.data;
+  } catch(e) {
+    console.error(e);
+  };
+};
+
 //changed slug, path, moved
 const editAlbum = async (userId, albumId, updatedAlbum) => {
   try {
@@ -117,7 +136,7 @@ const editAlbum = async (userId, albumId, updatedAlbum) => {
 //I moved this so all concerns are together changed slug changed destroy to delete
 const deleteAlbum = async (userId, albumId) => {
   try {
-    const resp = await api.delete(`users/user-id/${userId}/albums/album-id/${albumId}`, album);
+    const resp = await api.delete(`users/user-id/${userId}/albums/album-id/${albumId}`);
     return resp.data;
   } catch(e) {
     console.error(e);
@@ -172,10 +191,12 @@ const deleteSong = async (userId, albumId, songId) => {
 export {
   postUser,
   loginUser,
-  getAllUsers,
+  getUsers,
+  getUser,
   getUserMusic,
   getUserAlbums,
   postAlbum,
+  getAlbum,
   editAlbum,
   deleteAlbum,
   getAlbumSongs,

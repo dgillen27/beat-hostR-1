@@ -6,11 +6,11 @@ class Welcome extends Component {
   }
 
   render() {
-    const { handleRegisterSubmit, handleRegisterChange, registerData } = this.props;
+    const { handleRegister, handleRegisterChange, registerData } = this.props;
     return(
       <div className="welcome">
         <h2>Welcome Component</h2>
-        <form onSubmit={handleRegisterSubmit}>
+        <form onSubmit={handleRegister}>
           <h3>Name</h3>
           <input
             onChange={handleRegisterChange}
@@ -29,12 +29,12 @@ class Welcome extends Component {
           <input
             onChange={handleRegisterChange}
             placeholder='Password'
-            type="text"
+            type="password"
             name="password"
             value={registerData.password} />
           <h3>Submit or Enter as Guest</h3>
           <button
-            onSubmit={handleRegisterSubmit}
+            onSubmit={handleRegister}
             type="submit"
             name="submit"
             value="submit" />

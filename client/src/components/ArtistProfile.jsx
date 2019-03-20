@@ -2,113 +2,105 @@ import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import EditAlbum from './EditAlbum';
-import { getArtist, getArtistAlbums, getAlbumSongs, deleteAlbum } from '../services/apiHelper';
+import { getUser, getUserMusic, deleteAlbum } from '../services/apiHelper';
 
 class ArtistProfile extends Component {
   constructor() {
     super();
 
     this.state = {
-      currentArtist: {artist_name: 'haha'},
-      albums: [{title: 'yea', genre: 'rock', id: 2}, {title: 'no', genre: 'roll', id: 3}, {title: 'yea', genre: 'rock', id: 4}],
-      songsOfAlbum: [{title: 'oh yeaa', id: 1}, {title: 'oh nooo', id: 2}],
+      currentArtist: {},
+      music: [],
       isArtistUser: true,
-      showMore: null,
+      showMore: '',
     }
 
     this.checkUser = this.checkUser.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.getSongs = this.getSongs.bind(this);
-    this.getAlbums = this.getAlbums.bind(this);
     this.deleteAlbum = this.deleteAlbum.bind(this);
-    this.expandSong = this.expandSong.bind(this);
+    this.expandAlbumSongs = this.expandAlbumSongs.bind(this);
   }
 
   checkUser() {
-    if (this.props.user.id === this.props.match.params.id) {
+    if (this.props.user.id === parseInt(this.props.match.params.id)) {
       this.setState({
         isArtistUser: true
-      })
-    }
-  }
+      });
+    };
+  };
 
-  handleClick(album_id) {
-    const id = this.props.match.params.id;
-    this.props.history.push(`/artists/${id}/albumform/${album_id}`);
+  handleClick(album) {
+    const userId = this.state.currentArtist.id;
+    this.props.history.push(`/users/${userId}/albumform${album ? `/${album.id}` : '/create'}`);
   }
 
   async getArtist() {
-      // const currentArtist = await getArtist(this.props.match.params.id);
-      // this.setState({
-      //   currentArtist
-      // })
-    }
-
-  async getAlbums(artist) {
-    // const albums = await getArtistAlbums(artist);
-    // this.setState({
-    //   albums
-    // })
-  }
-
-  async getSongs(ev) {
-    ev.preventDefault();
-
-    // const songsOfAlbum = await getAlbumSongs(album);
-    // this.setState({
-    //   songsOfAlbum,
-    // })
-  }
-
-  async deleteAlbum(ev) {
-    ev.preventDefault();
-    // const song = await deleteAlbum();
+    const resp = await getUser(this.props.match.params.userId);
     this.setState({
-      albums: this.state.albums.filter(album => (
-        album.id !== Number(ev.target.id)
-      ))
+      currentArtist: resp.user
     })
   }
 
-  expandSong(idx) {
-    // this.setState(prevState => ({
-    //   showMore: (idx === prevState.showMore) ? null: idx
-    // }))
-  }
+  async getArtistMusic(id) {
+    const resp = await getUserMusic(id);
+    console.log(resp.music);
+    this.setState({
+      music: resp.music
+    });
+  };
 
-  componentDidMount() {
-    // this.checkUser();
-    // this.getArtist();
-    // this.getAlbums();
+  async deleteAlbum(userId, albumId) {
+    // const song = await deleteAlbum();
+    // this.setState({
+    //   albums: this.state.albums.filter(album => (1/albumform/create
+    //   ))
+    // })
+  };
+
+  expandAlbumSongs(albumId) {
+    this.setState(prevState => ({
+      showMore: (albumId === prevState.showMore) ? null: albumId
+    }))
+  };
+
+  async componentDidMount() {
+    await this.getArtist();
+    await this.checkUser();
+    await this.getArtistMusic(this.state.currentArtist.id);
   }
 
   render() {
-    const { albums, songs, isArtistUser, currentArtist } = this.state;
+    const { music, isArtistUser, currentArtist, showMore } = this.state;
     const { user, token, artist } = this.props;
 
     return (
       <div className="artist-profile">
-        <div onClick={() => this.props.history.push('/artists')}>Back to Artists</div>
+        <div onClick={() => this.props.history.push('/users')}>Back to Artists</div>
         <h1>{currentArtist.artist_name}</h1>
         { isArtistUser &&
-            <div onClick={() => this.handleClick(albums.length + 1)}>Create Album</div>
+            <div onClick={() => this.handleClick()}>Create Album</div>
         }
         <div className="albumList">
-          {albums.map((album, id) => {
-            return (
-              <div className="album" key={album.id}>
+          {music.map((album, id) => (
+              <div key={album.id} onClick={(ev) => {
+                ev.preventDefault()
+                this.expandAlbumSongs(album.id)
+                }}
+                className="album">
                 <p className="album-name">Name: {album.title}</p>
                 <p className="album-genre">Genre: {album.genre}</p>
-                <div onClick={this.getSongs}>Show Songs</div>
-                { isArtistUser &&
+                {album.id === showMore &&
                   <div>
-                    <div onClick={() => this.handleClick(id + 1)}>Edit Album</div>
-                    <button id={album.id} onClick={(ev) => this.deleteAlbum(ev)}>Delete</button>
+                    {album.songs.map(song => (
+                      <div key={song.id}>
+                        <p>{song.title}</p>
+                        <audio controls src={song.file_url} type='audio'></audio>
+                      </div>
+                    ))}
                   </div>
                 }
               </div>
-            )
-          })}
+            ))}
         </div>
       </div>
     );
