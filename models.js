@@ -1,15 +1,28 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize({
-  database: 'p3_music_db',
-  username: 'sequelize',
-  password: 'password',
-  dialect: 'postgres',
-  operatorsAliases: false,
-  define: {
-    underscored: true,
-  },
-});
+let sequelize;
+if (process.env.DATABASE_URL) {
+  console.log('called');
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgresql',
+    loggin: true,
+    operatorsAliases: false,
+    define: {
+      underscored: true,
+    },
+  });
+} else {
+  sequelize = new Sequelize({
+    database: `p3_music_db`,
+    dialect: `postgresql`,
+    username: `sequelize`,
+    password: `password`,
+    operatorsAliases: false,
+    define: {
+      underscored: true
+    }
+  });
+};
 
 const User = sequelize.define('user', {
   email: {
