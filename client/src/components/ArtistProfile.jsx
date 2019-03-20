@@ -9,9 +9,9 @@ class ArtistProfile extends Component {
     super();
 
     this.state = {
-      currentArtist: {name: 'haha'},
-      albums: [{name: 'yea', genre: 'rock', id: 2}, {name: 'no', genre: 'roll', id: 3}, {name: 'yea', genre: 'rock', id: 4}],
-      songsOfAlbum: [{name: 'oh yeaa', id: 1}, {name: 'oh nooo', id: 2}],
+      currentArtist: {artist_name: 'haha'},
+      albums: [{title: 'yea', genre: 'rock', id: 2}, {title: 'no', genre: 'roll', id: 3}, {title: 'yea', genre: 'rock', id: 4}],
+      songsOfAlbum: [{title: 'oh yeaa', id: 1}, {title: 'oh nooo', id: 2}],
       isArtistUser: true,
       showMore: null,
     }
@@ -89,7 +89,7 @@ class ArtistProfile extends Component {
     return (
       <div className="artist-profile">
         <div onClick={() => this.props.history.push('/artists')}>Back to Artists</div>
-        <h1>{currentArtist.name}</h1>
+        <h1>{currentArtist.artist_name}</h1>
         { isArtistUser &&
             <div onClick={() => this.handleClick(albums.length + 1)}>Create Album</div>
         }
@@ -97,7 +97,7 @@ class ArtistProfile extends Component {
           {albums.map((album, id) => {
             return (
               <div className="album" key={album.id}>
-                <p className="album-name">Name: {album.name}</p>
+                <p className="album-name">Name: {album.title}</p>
                 <p className="album-genre">Genre: {album.genre}</p>
                 <div onClick={this.getSongs}>Show Songs</div>
                 { isArtistUser &&
