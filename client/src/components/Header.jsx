@@ -14,7 +14,7 @@ class Header extends Component {
     const { isLogin, user, token, loginData, handleSubmit, handleChange, logOut } = this.props;
     return(
       <div className="login">
-        <h2>Header</h2>
+        <h2>Beat HostR</h2>
         { !isLogin &&
           <form onSubmit={handleSubmit}>
             <input
@@ -29,7 +29,7 @@ class Header extends Component {
               type="text"
               name="password"
               value={loginData.password} />
-            <input
+            <button
               onSubmit={handleSubmit}
               type="submit"
               name="submit"
