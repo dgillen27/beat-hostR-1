@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link, Route, withRouter } from 'react-router-dom';
 import EditSong from './EditSong';
 import ArtistProfile from './ArtistProfile';
+import { postAlbum, editAlbum, getAlbumSongs, deleteSong } from '../services/apiHelper';
+
 
 class EditAlbum extends Component {
   constructor() {
@@ -9,10 +11,10 @@ class EditAlbum extends Component {
 
     this.state = {
       albumForm: {
-        name: 'hello',
-        genre: 'my',
+        title: '',
+        genre: '',
       },
-      songsOfAlbum: [{name: 'oh yeaa', id: 1}, {name: 'oh yeaa', id: 1}, {name: 'oh nooo', id: 2}]
+      songsOfAlbum: [{title: 'oh yeaa', id: 1}, {title: 'oh yeaa', id: 3}, {title: 'oh nooo', id: 2}]
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -40,9 +42,9 @@ class EditAlbum extends Component {
     }
 
   async handleNewSubmit(ev) {
-    const { name, genre } = this.state.albumForm;
+    const { title, genre } = this.state.albumForm;
     const newAlbum = {
-      name,
+      title,
       genre
     }
     // const lastAlbum = await postAlbum(newAlbum);
@@ -50,9 +52,9 @@ class EditAlbum extends Component {
   }
 
   async handleEditSubmit(ev) {
-    const { name, genre } = this.state.albumForm;
+    const { title, genre } = this.state.albumForm;
     const newAlbum = {
-      name,
+      title,
       genre
     }
     // const lastAlbum = await editAlbum(newAlbum);
@@ -70,47 +72,46 @@ class EditAlbum extends Component {
 
   async deleteSong(ev) {
     ev.preventDefault();
-
     // const deletedSong = await deleteSong();
-    // this.setState({
-    //   songsOfAlbum: this.state.songsOfAlbum.filter(song => (
-    //     song !== ev.target.value
-    //   ))
-    // }) may need to work on this more
+    this.setState({
+      songsOfAlbum: this.state.songsOfAlbum.filter(song => (
+        song.id !== Number(ev.target.id)
+      ))
+    })
   }
 
   createSong(song_id) {
     const id = this.props.match.params.id;
     const album_id = this.props.match.params.album_id;
-    this.props.history.push(`/artists/${id}/albumform/${album_id}/song/${song_id}`)
+    this.props.history.push(`/artists/${id}/albumform/${album_id}/songform/${song_id}`)
   }
 
   componentDidMount() {
     // this.setState({
     //   albumForm: {
-    //     name: {this.props.name}
+    //     title: {this.props.title}
     //     genre: {this.props.genre}
     //   }
     // })
   }
 
   render() {
-    const { name, genre } = this.state.albumForm;
+    const { title, genre } = this.state.albumForm;
     const { songsOfAlbum } = this.state;
     return (
       <div className="edit-album">
         <h1>Edit/Create Album</h1>
         <form onSubmit={this.handleEditSubmit}>
 
-          <label htmlFor="name">
-            Name:
+          <label htmlFor="title">
+            Title:
           </label>
           <input
             type="text"
             onChange={this.handleChange}
-            id="name"
-            name="name"
-            value={name}
+            id="title"
+            name="title"
+            value={title}
             />
 
           <label htmlFor="genre">
@@ -134,8 +135,8 @@ class EditAlbum extends Component {
           <button onClick={() => this.createSong(songsOfAlbum.length + 1)}>Add Song</button>
           {songsOfAlbum.map(song => (
             <div className="artist" key={song.id}>
-              <p>{song.name}</p>
-              <button onClick={this.deleteSong}>Delete</button>
+              <p>{song.title}</p>
+              <button id={song.id} onClick={(ev) => this.deleteSong(ev)}>Delete</button>
             </div>
           ))}
         </div>

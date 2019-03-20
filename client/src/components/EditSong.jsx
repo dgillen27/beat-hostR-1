@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Route, withRouter } from 'react-router-dom';
+import { postSong } from '../services/apiHelper';
 
 class EditSong extends Component {
   constructor() {
@@ -7,7 +8,7 @@ class EditSong extends Component {
 
     this.state = {
       songForm: {
-        name: '',
+        title: '',
         file_url: '',
       }
     }
@@ -28,9 +29,9 @@ class EditSong extends Component {
 
   async handleSubmit(ev) {
     ev.preventDefault();
-    const { name, file_url } = this.state.songForm;
+    const { title, file_url } = this.state.songForm;
     const newSong = {
-      name,
+      title,
       file_url
     }
     // const lastSong = await postSong(newSong);
@@ -44,21 +45,21 @@ class EditSong extends Component {
   }
 
   render() {
-    const { name, file_url } = this.state.songForm;
+    const { title, file_url } = this.state.songForm;
     return (
       <div className="edit-album">
         <h1>Create Song</h1>
         <form onSubmit={this.handleSubmit}>
 
-          <label htmlFor="name">
-            Name:
+          <label htmlFor="title">
+            Title:
           </label>
           <input
             type="text"
             onChange={this.handleChange}
-            id="name"
-            name="name"
-            value={name}
+            id="title"
+            name="title"
+            value={title}
             />
 
           <label htmlFor="file-url">

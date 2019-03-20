@@ -5,7 +5,7 @@ const main = async () => {
 
   const users = [];
 
-  for(let i = 1; i <= 10; i++) {
+  for(let i = 0; i < 10; i++) {
     users[i] = await User.create({
       email: `user${i}@email.com`,
       password_digest: `user${i}`,
@@ -13,18 +13,38 @@ const main = async () => {
     });
   };
 
+//////////////////////////////////////////
+
   const albums = [];
+  const albumsPerUser = 3;
 
   for(let i = 0; i < users.length; i++) {
-    for(let j = 1; j <= 3; j++) {
-      albums[i + j]
-    }
-  }
+    for(let j = 0; j < albumsPerUser; j++) {
+      albums[(i * albumsPerUser) + j] = await users[i].createAlbum({
+        title: `user${i} album${j}`,
+        genre: `genre`,
+      });
+    };
+  };
+
+  console.log(albums.length);
 
   //////////////////////////////////////////
 
-  //////////////////////////////////////////
+  const songs = [];
+  const songsPerAlbum = 5;
 
-}
+  for (let i = 0; i < albums.length; i++) {
+    for (let j = 0; j < songsPerAlbum; j++) {
+      songs[(i * songsPerAlbum) + j] = await albums[i].createSong({
+        title: `album${i} song${j}`,
+        file_url: `song${i}located${j}here${i * songsPerAlbum + j}`,
+      });
+    };
+  };
+
+  console.log(songs.length);
+
+};
 
 main();

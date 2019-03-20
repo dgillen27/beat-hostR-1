@@ -61,7 +61,7 @@ const getAlbumSongs = async (user) => {
   }
 }
 
-const removeAlbum = async (album) => {
+const deleteAlbum = async (album) => {
   try {
     const resp = await api.destroy(`/artist/:artist_id/albums/`, album);
     return resp.data;
@@ -111,11 +111,12 @@ const postSong = async (song) => {
   }
 }
 
+
 export {
   getAllArtists,
   getArtistAlbums,
   getAlbumSongs,
-  removeAlbum,
+  deleteAlbum,
   postAlbum,
   editAlbum,
   deleteSong,

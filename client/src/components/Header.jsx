@@ -1,49 +1,53 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 
 class Header extends Component {
   constructor(){
     super();
-
-    this.state = {
-      loginData: {
-        email: '',
-        password: ''
-      }
-    }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChange(ev) {
-    ev.preventDefault();
-    const { name, value } = ev.target
-    this.setState(prevState => ({
-      loginData: {
-        ...prevState.loginData,
-        [name]: value
-      }
-    }))
-  }
-
-  async handleSubmit(ev) {
-    ev.preventDefault();
-    const { loginData } = this.state
-    // const lastUser = await loginUser(loginData);
+  handleClick(id) {
+    this.props.history.push(`/artists/${id}`)
   }
 
   render() {
+    const { isLogin, user, token, loginData, handleSubmit, handleChange, logOut } = this.props;
     return(
       <div className="login">
         <h2>Beat HostR</h2>
-        <form onSubmit={this.handleSubmit}>
-          <input onChange={this.handleChange} placeholder='Email' type="text" name="email" value={this.email} />
-          <input onChange={this.handleChange} placeholder='Password' type="text" name="password" value={this.password} />
-          <button onSubmit={this.handleSubmit} placeholder="submit" type="submit" name="submit" value="submit">Submit</button>
-        </form>
+        { !isLogin &&
+          <form onSubmit={handleSubmit}>
+            <input
+              onChange={handleChange}
+              placeholder='Email'
+              type="text"
+              name="email"
+              value={loginData.email} />
+            <input
+              onChange={handleChange}
+              placeholder='Password'
+              type="text"
+              name="password"
+              value={loginData.password} />
+            <button
+              onSubmit={handleSubmit}
+              type="submit"
+              name="submit"
+              value="submit" />
+          </form>
+        }
+        {
+          isLogin &&
+          <div>
+            <div>{user.artist_name}</div>
+            <div onClick={() => this.handleClick(user.id)}>My Profile</div>
+            <div onClick={(ev) => logOut(ev)}>Sign out</div>
+          </div>
+        }
       </div>
     )
   }
 
 }
 
-export default Header;
+export default withRouter(Header);
