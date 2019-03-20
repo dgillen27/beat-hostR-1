@@ -1,0 +1,165 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: url("https://mocah.org/uploads/posts/4557123-digital-art-minimalism-simple-simple-background-geometry-hexagon-triangle-white-background.png");
+  background-size: cover;
+  color: white;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+a {
+  text-decoration: none;
+}
+
+h2 {
+  font-family: 'Play', sans-serif;
+}
+
+h1 {
+  font-family: 'Play', sans-serif;
+}
+
+#logo {
+  height: 100px;
+  width: 100px;
+  padding-bottom: 10px;
+}
+
+.login {
+  background: rgb(240, 237, 237);
+  color: black;
+  position: center;
+  opacity: .95;  
+  padding: 15px;
+  padding-top: 2px; 
+  border-top-left-radius: 25px;
+  width: 200px;
+  margin: auto;
+  float: left; 
+  border-bottom-left-radius: 120px;
+  border-bottom-right-radius: 120px;
+}
+/* 
+#BeatHostR {
+  float: left;
+} */
+
+
+.welcome {
+  background: rgb(236, 234, 234);
+  color: black;
+  opacity: .95; 
+  top: 50%;
+  padding: 5px;
+  padding-top: 2px;
+  width: 575px;
+  margin: auto;
+  float: right;
+  border-bottom-right-radius: 120px;
+  border-bottom-left-radius: 120px;
+
+
+}
+
+.footer {
+  background: rgb(236, 234, 234);
+  color: black;
+  opacity: .95; 
+  /* padding: 10px; */
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 30px;
+
+}
+
+small {
+  padding: 0;
+  font-family: 'Play', sans-serif;
+}
+
+.artist-profile {
+  background: white;
+  color: black;
+  opacity: .95; 
+  top: 50%;
+  padding: 15px;
+  padding-top: 2px;
+  width: 575px;
+  margin: auto;
+  float: right;
+}
+
+.albumList {
+  background: white;
+  color: black;
+  opacity: .95; 
+  top: 50%;
+  padding: 15px;
+  padding-top: 2px;
+  width: 575px;
+  margin: auto;
+  float: right;
+}
+
+.artistList {
+  background: white;
+  color: black;
+  opacity: .95; 
+  top: 50%;
+  padding: 15px;
+  padding-top: 2px;
+  width: 575px;
+  margin: auto;
+  float: right;
+}
+
+.edit-album {
+  background: white;
+  color: black;
+  opacity: .95; 
+  top: 50%;
+  padding: 15px;
+  padding-top: 2px;
+  width: 575px;
+  margin: auto;
+  float: right;
+}
+
+.song-list {
+  background: white;
+  color: black;
+  opacity: .99; 
+  top: 50%;
+  padding: 15px;
+  padding-top: 2px;
+  width: 575px;
+  margin: auto;
+  float: right;
+}
+
+#Beat {
+  color: black;
+  position: relative;
+  left: 300px;
+}
+
+audio {
+    
+    filter: sepia(20%) saturate(90%) grayscale(1) contrast(99%) invert(8%) opacity(90%);
+    color: red;
+    width: 215px;
+    height: 30px;
+    position: relative;
+    left: 300px;
+}
