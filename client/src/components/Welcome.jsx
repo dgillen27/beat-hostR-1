@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { postUser } from '../services/apiHelper';
 
 class Welcome extends Component {
   constructor(){
@@ -40,10 +40,29 @@ class Welcome extends Component {
         <h2>Welcome Component</h2>
         <button type="button">Enter as Guest</button>
         <form onSubmit={this.handleSubmit}>
-          <input onChange={this.handleChange} placeholder='Username' type="text" name="userName" value={this.userName} />
-          <input onChange={this.handleChange} placeholder='Email' type="text" name="email" value={this.email} />
-          <input onChange={this.handleChange} placeholder='Password' type="text" name="password" value={this.password} />
-          <input onSubmit={this.handleSubmit} type="submit" name="submit" value="submit" />
+          <input
+            onChange={this.handleChange}
+            placeholder='Username'
+            type="text"
+            name="userName"
+            value={this.userName} />
+          <input
+            onChange={this.handleChange}
+            placeholder='Email'
+            type="text"
+            name="email"
+            value={this.email} />
+          <input
+            onChange={this.handleChange}
+            placeholder='Password'
+            type="text"
+            name="password"
+            value={this.password} />
+          <input
+            onSubmit={this.handleSubmit}
+            type="submit"
+            name="submit"
+            value="submit" />
         </form>
       </div>
     )

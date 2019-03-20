@@ -31,12 +31,31 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <Song />
         <Route exact path="/" component={Welcome}/>
-        <Route exact path="/artists/" component={ArtistList}/>
-        <Route exact path="/artists/:id" component={ArtistProfile}/>
-        <Route exact path="/artists/:id/albumform/:album_id" component={EditAlbum}/>
-        <Route exact path="/artists/:id/albumform/:album_id/song/:song_id" component={EditSong}/>
+        <Route exact path="/artists/" component={(props) => (
+          <ArtistList
+            user={user}
+            token={token}
+            />
+        )}/>
+        <Route exact path="/artists/:id" component={(props) => (
+          <ArtistProfile
+            user={user}
+            token={token}
+            />
+        )}/>
+        <Route exact path="/artists/:id/albumform/:album_id" component={(props) => (
+          <EditAlbum
+            user={user}
+            token={token}
+            />
+        )}/>
+        <Route exact path="/artists/:id/albumform/:album_id/song/:song_id" component={(props) => (
+          <EditSong
+            user={user}
+            token={token}
+            />
+        )}/>
         <Footer />
       </div>
     );
