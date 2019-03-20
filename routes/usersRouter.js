@@ -1,5 +1,5 @@
 const express = require('express');
-const { User } = require('../models')
+const { User, Album, Song } = require('../models')
 const { hashPassword, isAuthorized, genToken } = require('../auth');
 const albumsRouter = require('./albumsRouter');
 
@@ -107,6 +107,31 @@ usersRouter.delete('/user-id/:id', async (req, res) => {
     res.status(500).send(e.message);
   };
 });
+
+usersRouter.get('/user-id/:id/music', async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.id);
+    const albums = await user.getAlbums();
+    let songs = [];
+    for (let i = 0; i < albums.length; i++) {
+      const albumSongs = await albums[i].getSongs();
+      songs = [...songs, ...albumSongs];
+    };
+    const music = albums.map( album => ({
+      id: album.id,
+      title: album.title,
+      genre: album.genre,
+      createdAt: album.createdAt,
+      updatedAt: album.updatedAt,
+      userId: album.userId,
+      songs: songs.filter(song => song.albumId === album.id),
+    }));
+    res.json({ music });
+  } catch(e) {
+    console.log(e);
+    res.status(500).send(e.message);
+  }
+})
 
 usersRouter.use('/user-id/:id/albums', (req, res, next) => {
   res.locals.userId = req.params.id;

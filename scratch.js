@@ -4,11 +4,7 @@ const BASE_URL = `http://localhost:4000`;
 
 const test = async () => {
   try {
-    const resp = await axios.post(`${BASE_URL}/users/login`, {
-      artist_name: 'testuserupdated',
-      email: 'tester@email',
-      password: 'test',
-    });
+    const resp = await axios(`${BASE_URL}/users/user-id/1/music`);
     console.log(resp.data);
   } catch(e) {
     console.log(e);
