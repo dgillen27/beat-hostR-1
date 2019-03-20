@@ -15,8 +15,8 @@ class Welcome extends Component {
             onChange={handleRegisterChange}
             placeholder='Username'
             type="text"
-            name="userName"
-            value={registerData.userName} />
+            name="artist_name"
+            value={registerData.artist_name} />
           <input
             onChange={handleRegisterChange}
             placeholder='Email'

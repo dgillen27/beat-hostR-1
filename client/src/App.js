@@ -26,7 +26,7 @@ class App extends Component {
         password: ''
       },
       registerData: {
-        userName: '',
+        artist_name: '',
         email: '',
         password: ''
       }
@@ -86,7 +86,7 @@ class App extends Component {
       registerData: {
         email: '',
         password: '',
-        userName: '',
+        artist_name: '',
       }
     })
     this.props.history.push("/artists/");
@@ -141,7 +141,7 @@ class App extends Component {
             token={token}
             />
         )}/>
-        <Route exact path="/artists/:id/albumform/:album_id/song/:song_id" render={(props) => (
+        <Route exact path="/artists/:id/albumform/:album_id/songform/:song_id" render={(props) => (
           <EditSong
             user={user}
             token={token}

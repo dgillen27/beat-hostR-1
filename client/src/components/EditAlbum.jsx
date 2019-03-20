@@ -11,10 +11,10 @@ class EditAlbum extends Component {
 
     this.state = {
       albumForm: {
-        name: '',
+        title: '',
         genre: '',
       },
-      songsOfAlbum: [{name: 'oh yeaa', id: 1}, {name: 'oh yeaa', id: 3}, {name: 'oh nooo', id: 2}]
+      songsOfAlbum: [{title: 'oh yeaa', id: 1}, {title: 'oh yeaa', id: 3}, {title: 'oh nooo', id: 2}]
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -42,9 +42,9 @@ class EditAlbum extends Component {
     }
 
   async handleNewSubmit(ev) {
-    const { name, genre } = this.state.albumForm;
+    const { title, genre } = this.state.albumForm;
     const newAlbum = {
-      name,
+      title,
       genre
     }
     // const lastAlbum = await postAlbum(newAlbum);
@@ -52,9 +52,9 @@ class EditAlbum extends Component {
   }
 
   async handleEditSubmit(ev) {
-    const { name, genre } = this.state.albumForm;
+    const { title, genre } = this.state.albumForm;
     const newAlbum = {
-      name,
+      title,
       genre
     }
     // const lastAlbum = await editAlbum(newAlbum);
@@ -83,35 +83,35 @@ class EditAlbum extends Component {
   createSong(song_id) {
     const id = this.props.match.params.id;
     const album_id = this.props.match.params.album_id;
-    this.props.history.push(`/artists/${id}/albumform/${album_id}/song/${song_id}`)
+    this.props.history.push(`/artists/${id}/albumform/${album_id}/songform/${song_id}`)
   }
 
   componentDidMount() {
     // this.setState({
     //   albumForm: {
-    //     name: {this.props.name}
+    //     title: {this.props.title}
     //     genre: {this.props.genre}
     //   }
     // })
   }
 
   render() {
-    const { name, genre } = this.state.albumForm;
+    const { title, genre } = this.state.albumForm;
     const { songsOfAlbum } = this.state;
     return (
       <div className="edit-album">
         <h1>Edit/Create Album</h1>
         <form onSubmit={this.handleEditSubmit}>
 
-          <label htmlFor="name">
-            Name:
+          <label htmlFor="title">
+            Title:
           </label>
           <input
             type="text"
             onChange={this.handleChange}
-            id="name"
-            name="name"
-            value={name}
+            id="title"
+            name="title"
+            value={title}
             />
 
           <label htmlFor="genre">
@@ -135,7 +135,7 @@ class EditAlbum extends Component {
           <button onClick={() => this.createSong(songsOfAlbum.length + 1)}>Add Song</button>
           {songsOfAlbum.map(song => (
             <div className="artist" key={song.id}>
-              <p>{song.name}</p>
+              <p>{song.title}</p>
               <button id={song.id} onClick={(ev) => this.deleteSong(ev)}>Delete</button>
             </div>
           ))}
