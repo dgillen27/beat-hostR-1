@@ -95,7 +95,7 @@ class ArtistProfile extends Component {
                   className={album.id === showMore ? 'selected-album': "album"}>
                     <p className="album-name">Name: {album.title}</p>
                     <p className="album-genre">Genre: {album.genre}</p>
-                    <img src="https://i.ytimg.com/vi/vJDISmFGbMQ/maxresdefault.jpg" alt="" />
+                    <img src="https://cms.qz.com/wp-content/uploads/2017/01/psychedelic-pattern.jpg?quality=75&strip=all&w=410&h=231" alt="" />
                     {album.id === showMore &&
                       <div className="songs">
                       {album.songs.map(song => (
