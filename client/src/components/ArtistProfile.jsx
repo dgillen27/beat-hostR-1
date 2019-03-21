@@ -79,8 +79,6 @@ class ArtistProfile extends Component {
           <div className="about-artist">
             <img src={currentArtist.image_url} alt="artist-image"/>
             <h1>{currentArtist.artist_name}</h1>
-            <br />
-            <p>This is me I am an artist wow look at me so artist congrats it's a person who can do art wow so much art yeah yeah yeah</p>
           </div>
           { isArtistUser &&
               <button onClick={() => this.handleClick()}>Create Album</button>

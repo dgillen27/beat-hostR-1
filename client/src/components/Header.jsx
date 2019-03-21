@@ -26,7 +26,7 @@ class Header extends Component {
             <input
               onChange={handleChange}
               placeholder='Password'
-              type="text"
+              type="password"
               name="password"
               value={loginData.password} />
             <button
