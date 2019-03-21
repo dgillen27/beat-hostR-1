@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link, Route, withRouter } from 'react-router-dom';
 import EditSong from './EditSong';
+import CreateNewSong from './CreateNewSong';
 import ArtistProfile from './ArtistProfile';
-import { getAlbum } from '../services/apiHelper';
+import { getAlbum, postAlbum, editAlbum, getAlbumSongs, deleteSong } from '../services/apiHelper';
 
 
 class EditAlbum extends Component {
@@ -10,24 +11,54 @@ class EditAlbum extends Component {
     super();
 
     this.state = {
+      album: '',
+      songs: [],
       albumForm: {
         title: '',
         genre: '',
-        albumId: '',
       },
-      songsOfAlbum: [{title: 'oh yeaa', id: 1}, {title: 'oh yeaa', id: 3}, {title: 'oh nooo', id: 2}]
+      albumId: 'create',
+      formError: false,
     }
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleNewSubmit = this.handleNewSubmit.bind(this);
-    this.handleEditSubmit = this.handleEditSubmit.bind(this);
-    this.getSongs = this.getSongs.bind(this);
-    this.deleteSong = this.deleteSong.bind(this);
-    this.createSong = this.createSong.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleNewAlbumSubmit = this.handleNewAlbumSubmit.bind(this);
+    this.handleEditAlbumSubmit = this.handleEditAlbumSubmit.bind(this);
+    this.goBackToUser = this.goBackToUser.bind(this);
+    this.checkForCreate = this.checkForCreate.bind(this);
+    this.handleSongDelete = this.handleSongDelete.bind(this);
   }
 
-  handleSubmit() {
+  async checkForCreate() {
+    if (this.state.albumId !== 'create') {
+      try {
+        const albumResp = await getAlbum(this.props.match.params.userId, this.state.albumId);
+        const album = albumResp.album;
+        const songsResp = await getAlbumSongs(this.props.match.params.userId, this.state.albumId);
+        const songs = songsResp.songs;
+        this.setState({
+          album,
+          songs,
+          albumForm: {
+            title: album.title,
+            genre: album.genre,
+          }
+        });
+      } catch(e) {
+        console.error(e);
+      }
+    }
+  }
+
+  async componentDidMount() {
+    const albumId = this.props.match.params.albumId;
+    await this.setState({
+      albumId
+    });
+    await this.checkForCreate();
+  }
+
+  goBackToUser() {
     const userId = this.props.match.params.userId;
     this.props.history.push(`/users/${userId}`);
   }
@@ -42,113 +73,110 @@ class EditAlbum extends Component {
       }))
     }
 
-  async handleNewSubmit(ev) {
+  async handleNewAlbumSubmit() {
     const { title, genre } = this.state.albumForm;
-    const newAlbum = {
-      title,
-      genre
-    }
-    // const lastAlbum = await postAlbum(newAlbum);
-    this.handleSubmit();
-  }
-
-  async handleEditSubmit(ev) {
-    const { title, genre } = this.state.albumForm;
-    const newAlbum = {
-      title,
-      genre
-    }
-    // const lastAlbum = await editAlbum(newAlbum);
-    this.handleSubmit();
-  }
-
-  async getSongs(ev) {
-    ev.preventDefault();
-
-    // const songsOfAlbum = await getAlbumSongs(album);
-    // this.setState({
-    //   songsOfAlbum,
-    // })
-  }
-
-  async deleteSong(ev) {
-    ev.preventDefault();
-    // const deletedSong = await deleteSong();
-    this.setState({
-      songsOfAlbum: this.state.songsOfAlbum.filter(song => (
-        song.id !== Number(ev.target.id)
-      ))
-    })
-  }
-
-  createSong(song_id) {
-    const id = this.props.match.params.id;
-    const album_id = this.props.match.params.album_id;
-    this.props.history.push(`/artists/${id}/albumform/${album_id}/songform/${song_id}`)
-  }
-
-  async checkForCreate() {
-    if (this.state.albumForm.albumId !== 'create') {
-      const album = await getAlbum(this.props.match.params.userId, this.state.albumForm.albumId);
-      console.log(album);
-    }
-  }
-
-  async componentDidMount() {
-    const albumId = this.props.match.albumId;
-    this.setState({
-      albumForm: {
-        albumId
+    if (title && genre) {
+      const newAlbum = {
+        title,
+        genre
       }
-    });
-    await this.checkForCreate();
+      const { userId } = this.props.match.params;
+      const createdAlbum = await postAlbum(userId, newAlbum);
+      this.setState({
+        formError: false,
+        albumForm: {
+          title: '',
+          genre: '',
+        },
+      });
+      // this.goBackToUser();
+    } else {
+      this.setState({
+        formError: true,
+      });
+    };
+  }
+
+  async handleEditAlbumSubmit() {
+    const { title, genre } = this.state.albumForm;
+    const albumId = this.state.album.id;
+    const { userId } = this.props.match.params;
+    if (title && genre) {
+      const editedAlbum = {
+        title,
+        genre
+      }
+      const updatedAlbum = await editAlbum(userId, albumId, editedAlbum);
+      this.setState({
+        formError: false,
+      })
+      // this.goBackToUser();
+    } else {
+      this.setState({
+        formError: true,
+      })
+    }
+  }
+
+  async handleSongDelete(songId) {
+    const { userId } = this.props.match.params;
+    const albumId = this.state.album.id;
+    try {
+      const resp = await deleteSong(userId, albumId, songId);
+      //need to remove song from song array so it will reprint
+    } catch(e) {
+      console.log(e);
+    }
   }
 
   render() {
     const { title, genre } = this.state.albumForm;
-    const { songsOfAlbum } = this.state;
+    const { formError, album, songs } = this.state;
+    const albumId = this.state.albumId
     return (
-      <div className="edit-album">
-        <h1>Edit/Create Album</h1>
-        <form onSubmit={this.handleEditSubmit}>
-
-          <label htmlFor="title">
-            Title:
-          </label>
-          <input
-            type="text"
-            onChange={this.handleChange}
-            id="title"
-            name="title"
-            value={title}
-            />
-
-          <label htmlFor="genre">
-            Genre:
-          </label>
-          <input
-            type="text"
-            onChange={this.handleChange}
-            id="genre"
-            name="genre"
-            value={genre}
-            />
-
-          <button
-            type="submit"
-            onSubmit={this.handleEditSubmit}
-            >Submit</button>
-        </form>
-        <div className="song-list">
-          <div>All Songs</div>
-          <button onClick={() => this.createSong(songsOfAlbum.length + 1)}>Add Song</button>
-          {songsOfAlbum.map(song => (
-            <div className="artist" key={song.id}>
-              <p>{song.title}</p>
-              <button id={song.id} onClick={(ev) => this.deleteSong(ev)}>Delete</button>
+      <div className="edit-music">
+        <div className="edit-create-album">
+          <h1>Edit/Create Album</h1>
+          <form onSubmit={(ev) => {
+            ev.preventDefault();
+            return (
+            albumId === 'create' ? this.handleNewAlbumSubmit() : this.handleEditAlbumSubmit())}}>
+            <label htmlFor="title">Title:</label>
+            <input
+              type="text"
+              onChange={this.handleChange}
+              id="title"
+              name="title"
+              value={title} />
+            <label htmlFor="genre">Genre:</label>
+            <input
+              type="text"
+              onChange={this.handleChange}
+              id="genre"
+              name="genre"
+              value={genre} />
+            <input
+              type="submit" />
+          </form>
+            {formError && <p className="input-error-message">Please enter a title AND a genre</p>}
+          </div>
+        { album &&
+        <div className="edit-create-song">
+          <CreateNewSong
+            albumId={this.state.album.id} />
+          <div>
+          {songs.map( el => (
+            <div>
+              <div>{el.title}</div>
+              <div onClick={(ev) => {
+                ev.preventDefault();
+                this.handleSongDelete(el.id)
+                }}>Delete Song
+              </div>
             </div>
           ))}
-        </div>
+          </div>
+        </div>}
       </div>
     );
   }

@@ -35,6 +35,11 @@ const User = sequelize.define('user', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  image_url: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: 'https://beathostr.s3.amazonaws.com/bucketFolder/1553189692470-lg.png',
+  },
 });
 
 const Album = sequelize.define('album', {
@@ -45,6 +50,11 @@ const Album = sequelize.define('album', {
   genre: {
     type: Sequelize.STRING,
     allowNull: false,
+  },
+  image_url: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: 'https://beathostr.s3.amazonaws.com/bucketFolder/1553189616539-lg.xml',
   },
 });
 

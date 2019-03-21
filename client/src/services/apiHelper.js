@@ -116,7 +116,7 @@ const postAlbum = async (userId, newAlbum) => {
 //get specific album
 const getAlbum = async (userId, albumId) => {
   try {
-    const resp = await api(`user/user-id/${userId}/albums/album-id/${albumId}`)
+    const resp = await api(`users/user-id/${userId}/albums/album-id/${albumId}`)
     return resp.data;
   } catch(e) {
     console.error(e);
@@ -126,7 +126,7 @@ const getAlbum = async (userId, albumId) => {
 //changed slug, path, moved
 const editAlbum = async (userId, albumId, updatedAlbum) => {
   try {
-    const resp = await api.put(`/user/user-id/${userId}/albums/album-id/${albumId}`, updatedAlbum);
+    const resp = await api.put(`/users/user-id/${userId}/albums/album-id/${albumId}`, updatedAlbum);
     return resp.data;
   } catch(e) {
     console.error(e);
@@ -181,7 +181,7 @@ const editSong = async (userId, albumId, songId, updatedSong) => {
 const deleteSong = async (userId, albumId, songId) => {
   try {
     const resp = await api.delete(`/users/user-id/${userId}/albums/album-id/${albumId}/songs/song-id/${songId}`);
-    return resp.data;
+    return resp;
   } catch(e) {
     console.error(e);
   };

@@ -10,7 +10,6 @@ import Song from './components/Song';
 import EditAlbum from './components/EditAlbum';
 import EditSong from './components/EditSong';
 import ArtistList from './components/ArtistList';
-import FileUpload from './components/FileUpload';
 import { loginUser, postUser } from './services/apiHelper';
 
 class App extends Component {

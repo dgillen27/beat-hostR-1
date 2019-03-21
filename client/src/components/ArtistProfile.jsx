@@ -29,9 +29,9 @@ class ArtistProfile extends Component {
     };
   };
 
-  handleClick(album) {
+  handleClick(albumId) {
     const userId = this.state.currentArtist.id;
-    this.props.history.push(`/users/${userId}/albumform${album ? `/${album.id}` : '/create'}`);
+    this.props.history.push(`/users/${userId}/albumform${albumId ? `/${albumId}` : '/create'}`);
   }
 
   async getArtist() {
@@ -73,43 +73,45 @@ class ArtistProfile extends Component {
     const { user, token, artist } = this.props;
 
     return (
-      <div className="profile-page">
+      <div clasName="profile-page">
         <div className="artist-profile">
-        <button id="back" onClick={() => this.props.history.push('/users')}>Back to Artists</button>
+          <button id="back" onClick={() => this.props.history.push('/users')}>Back to Artists</button>
           <div className="about-artist">
-            <img src="https://i.ytimg.com/vi/vJDISmFGbMQ/maxresdefault.jpg" alt="" />
+            <img src="https://i.ytimg.com/vi/vJDISmFGbMQ/maxresdefault.jpg" alt="artist-image"/>
             <h1>{currentArtist.artist_name}</h1>
-            <br/>
-            <p>This is me I am an artist wow look at me so artist congrats its a person who can do art wow
-            so much many art yeah yeah yeah</p>
+            <br />
+            <p>This is me I am an artist wow look at me so artist congrats it's a person who can do art wow so much art yeah yeah yeah</p>
           </div>
-          {isArtistUser &&
-            <button onClick={() => this.handleClick()}>Create Album</button>
+          { isArtistUser &&
+              <div onClick={() => this.handleClick()}>Create Album</div>
           }
           <div className="albumList">
             {music.map((album, id) => (
-                <div key={album.id} onClick={(ev) => {
-                  ev.preventDefault()
-                  this.expandAlbumSongs(album.id)
-                  }}
-                  className={album.id === showMore ? 'selected-album': "album"}>
-                    <p className="album-name">Name: {album.title}</p>
-                    <p className="album-genre">Genre: {album.genre}</p>
-                    <img src="https://cms.qz.com/wp-content/uploads/2017/01/psychedelic-pattern.jpg?quality=75&strip=all&w=410&h=231" alt="" />
-                    {album.id === showMore &&
-                      <div className="songs">
-                      {album.songs.map(song => (
-                        <div className="song" key={song.id}>
-                          <p>{song.title}</p>
-                          <audio controls src={song.file_url} type='audio'></audio>
-                          </div>
-                      ))}
+              <div key={album.id} onClick={(ev) => {
+                ev.preventDefault()
+                this.expandAlbumSongs(album.id)
+                }}
+                className="album">
+                <p className="album-name">Name: {album.title}</p>
+                <p className="album-genre">Genre: {album.genre}</p>
+                <img src="https://cms.qz.com/wp-content/uploads/2017/01/psychedelic-pattern.jpg?quality=75&strip=all&w=410&h=231" alt="album-image" />
+                { isArtistUser &&
+                  <div onClick={() => this.handleClick(album.id)}>Edit Album</div>
+                }
+                {album.id === showMore &&
+                  <div className="songs">
+                    {album.songs.map(song => (
+                      <div className="song" key={song.id}>
+                        <p>{song.title}</p>
+                        <audio controls src={song.file_url} type='audio'></audio>
+                      </div>
+                    ))}
                   </div>
                 }
               </div>
             ))}
+          </div>
         </div>
-      </div>
       </div>
     );
   }
