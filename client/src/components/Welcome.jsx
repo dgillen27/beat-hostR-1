@@ -9,7 +9,7 @@ class Welcome extends Component {
     const { handleRegister, handleRegisterChange, registerData } = this.props;
     return(
       <div className="welcome">
-        <h2>Welcome Component</h2>
+        <h2>Welcome</h2>
         <form onSubmit={handleRegister}>
           <h3>Name</h3>
           <input

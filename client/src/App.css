@@ -1,5 +1,6 @@
 .App {
   font-family: 'Ubuntu', sans-serif;
+  background: #333;
 }
 
 a {
@@ -23,14 +24,14 @@ a {
 
 .login input {
   margin-right: 5px;
-  height: 20px;
+  height: 2vh;
   border: 2px solid white;
   border-radius: 5px;
   outline: none;
 }
 
 .login button {
-  height: 24px;
+  height: 2vh;
   border-radius: 5px;
 }
 
@@ -38,11 +39,24 @@ a {
    color: #ddd;
  }
 
+ .after-login p {
+   color: white;
+   display: inline;
+   margin-right: 20px;
+   border-right: 1px solid white;
+   padding-right: 10px;
+ }
+
+ .after-login p:hover {
+   cursor: pointer;
+ }
+
 .welcome {
   display: flex;
   flex-direction: column;
-  height: 80vh;
-  background: linear-gradient(#aaa, #ddd);
+  min-height: 80vh;
+  background: linear-gradient(#666, #999);
+  overflow: scroll;
 }
 
 .welcome h2 {
@@ -58,7 +72,7 @@ a {
 }
 
 .welcome input {
- width: 30vw;
+ width: 500px;
  height: 6vh;
  border-radius: 5px;
  border: 2px solid white;
@@ -86,6 +100,36 @@ a {
   transition: 200ms;
 }
 
+@media only screen and (max-width: 700px) {
+  .welcome {
+    text-align: center;
+    align-items: center;
+    min-height: 80vh;
+    background: linear-gradient(#666, #999);
+    overflow: scroll;
+  }
+
+  .welcome h2 {
+    margin-left: 0;
+  }
+
+  .welcome form {
+    margin-left: 0;
+  }
+
+  .welcome input {
+    width: 90vw;
+  }
+
+  #guest {
+    margin-left: 0;
+  }
+
+  .login {
+    height: 15vh;
+  }
+}
+
 button {
   outline: none;
   font-family: 'Ubuntu', sans-serif;
@@ -95,6 +139,8 @@ button {
 button:hover {
   background: #7C00FF;
   color: white;
+  cursor: pointer;
+  border: 1px solid #7C00FF;
 }
 
 #guest {
@@ -123,18 +169,18 @@ button:hover {
 .artistList {
   height: auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   /* background: linear-gradient(#111, #222); */
   background: #eee;
   text-align: center;
-  width: 80vw;
+  width: 60vw;
   margin: auto;
   padding: 0 20px 0 20px;
 }
 
 .artistList h2 {
   grid-column-start: 1;
-  grid-column-end: 6;
+  grid-column-end: 5;
   color: #111;
   font-size: 5vw;
 }
@@ -192,8 +238,14 @@ button:hover {
 }
 
 .artist-profile button {
-  border: 1px solid black;
   border-radius: 5px;
+}
+
+#back {
+  height: 30px;
+  position: relative;
+  bottom: 5vh;
+  right:
 }
 
 .about-artist {
@@ -211,6 +263,18 @@ button:hover {
   margin-left: 10px;
 }
 
+.about-artist h1 {
+  margin-top: 0;
+  font-size: 60px;
+}
+
+.about-artist p {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  margin: 0;
+}
+
 .album {
   padding-bottom: 5px;
   border-bottom: 1px solid black;
@@ -223,6 +287,7 @@ button:hover {
   padding-left: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  box-shadow: 2px 5px 6px 1px rgba(0,0,1,0.28);
 }
 
 .album img {
@@ -246,6 +311,11 @@ button:hover {
   padding-left: 10px;
   display: flex;
   flex-direction: column;
+  box-shadow: 2px 5px 6px 1px rgba(0,0,1,0.28);
+}
+
+.selected-album:hover {
+  cursor: pointer;
 }
 
 .selected-album img {
@@ -269,10 +339,12 @@ audio {
 
 .album-name {
   font-size: 25px;
+  margin-bottom: 0;
 }
 
 .album-genre {
   font-size: 20px;
+  margin-top: 10px;
 }
 
 .album:hover {

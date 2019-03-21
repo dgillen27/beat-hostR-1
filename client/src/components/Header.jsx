@@ -38,10 +38,10 @@ class Header extends Component {
         }
         {
           token &&
-          <div>
-            <div>{user.artist_name}</div>
-            <div onClick={() => this.handleClick(user.id)}>My Profile</div>
-            <div onClick={(ev) => logOut(ev)}>Sign out</div>
+          <div className='after-login'>
+            <p>{user.artist_name}</p>
+            <p onClick={() => this.handleClick(user.id)}>My Profile</p>
+            <p onClick={(ev) => logOut(ev)}>Sign out</p>
           </div>
         }
       </div>

@@ -74,36 +74,36 @@ class ArtistProfile extends Component {
 
     return (
       <div className="profile-page">
-      <div className="artist-profile">
-        <button onClick={() => this.props.history.push('/users')}>Back to Artists</button>
-        <div className="about-artist">
-          <img src="https://i.ytimg.com/vi/vJDISmFGbMQ/maxresdefault.jpg" alt="" />
-          <h1>{currentArtist.artist_name}</h1>
-          <br/>
-          <p>This is me I am an artist wow look at me so artist congrats its a person who can do art wow
-          so much many art yeah yeah yeah</p>
-        </div>
-        { isArtistUser &&
+        <div className="artist-profile">
+        <button id="back" onClick={() => this.props.history.push('/users')}>Back to Artists</button>
+          <div className="about-artist">
+            <img src="https://i.ytimg.com/vi/vJDISmFGbMQ/maxresdefault.jpg" alt="" />
+            <h1>{currentArtist.artist_name}</h1>
+            <br/>
+            <p>This is me I am an artist wow look at me so artist congrats its a person who can do art wow
+            so much many art yeah yeah yeah</p>
+          </div>
+          {isArtistUser &&
             <button onClick={() => this.handleClick()}>Create Album</button>
-        }
-        <div className="albumList">
-          {music.map((album, id) => (
-              <div key={album.id} onClick={(ev) => {
-                ev.preventDefault()
-                this.expandAlbumSongs(album.id)
-                }}
-                className={album.id === showMore ? 'selected-album': "album"}>
-                  <p className="album-name">Name: {album.title}</p>
-                  <p className="album-genre">Genre: {album.genre}</p>
-                <img src="https://i.ytimg.com/vi/vJDISmFGbMQ/maxresdefault.jpg" alt="" />
-                {album.id === showMore &&
-                  <div className="songs">
-                    {album.songs.map(song => (
-                      <div className="song" key={song.id}>
-                        <p>{song.title}</p>
-                        <audio controls src={song.file_url} type='audio'></audio>
-                      </div>
-                    ))}
+          }
+          <div className="albumList">
+            {music.map((album, id) => (
+                <div key={album.id} onClick={(ev) => {
+                  ev.preventDefault()
+                  this.expandAlbumSongs(album.id)
+                  }}
+                  className={album.id === showMore ? 'selected-album': "album"}>
+                    <p className="album-name">Name: {album.title}</p>
+                    <p className="album-genre">Genre: {album.genre}</p>
+                    <img src="https://i.ytimg.com/vi/vJDISmFGbMQ/maxresdefault.jpg" alt="" />
+                    {album.id === showMore &&
+                      <div className="songs">
+                      {album.songs.map(song => (
+                        <div className="song" key={song.id}>
+                          <p>{song.title}</p>
+                          <audio controls src={song.file_url} type='audio'></audio>
+                          </div>
+                      ))}
                   </div>
                 }
               </div>
