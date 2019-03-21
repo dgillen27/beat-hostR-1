@@ -114,6 +114,7 @@ class App extends Component {
           handleChange={this.handleChange}
           logOut={this.logOut}
           />
+          <FileUpload />
         <Route exact path="/" render={() => (
           <Welcome
             handleRegisterChange={this.handleRegisterChange}

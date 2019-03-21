@@ -134,10 +134,10 @@ class EditAlbum extends Component {
             value={genre}
             />
 
-          <input
+          <button
             type="submit"
             onSubmit={this.handleEditSubmit}
-            />
+            >Submit</button>
         </form>
         <div className="song-list">
           <div>All Songs</div>

@@ -1,5 +1,6 @@
 .App {
   font-family: 'Ubuntu', sans-serif;
+  background: #333;
 }
 
 a {
@@ -23,14 +24,14 @@ a {
 
 .login input {
   margin-right: 5px;
-  height: 20px;
+  height: 2vh;
   border: 2px solid white;
   border-radius: 5px;
   outline: none;
 }
 
 .login button {
-  height: 24px;
+  height: 2vh;
   border-radius: 5px;
 }
 
@@ -38,18 +39,32 @@ a {
    color: #ddd;
  }
 
+ .after-login p {
+   color: white;
+   display: inline;
+   margin-right: 20px;
+   border-right: 1px solid white;
+   padding-right: 10px;
+ }
+
+ .after-login p:hover {
+   cursor: pointer;
+ }
+
 .welcome {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  background: linear-gradient(#111, #222);
+  min-height: 80vh;
+  background: linear-gradient(#666, #999);
+  overflow: scroll;
 }
 
 .welcome h2 {
   font-size: 50px;
   color: #ddd;
   margin-left: 100px;
-  margin-top: 125px;
+  margin-top: 3vh;
+  margin-bottom: 1vh;
 }
 
 .welcome form {
@@ -57,8 +72,8 @@ a {
 }
 
 .welcome input {
- width: 30vw;
- height: 50px;
+ width: 500px;
+ height: 6vh;
  border-radius: 5px;
  border: 2px solid white;
  font-size: 20px;
@@ -85,15 +100,47 @@ a {
   transition: 200ms;
 }
 
+@media only screen and (max-width: 700px) {
+  .welcome {
+    text-align: center;
+    align-items: center;
+    min-height: 80vh;
+    background: linear-gradient(#666, #999);
+    overflow: scroll;
+  }
+
+  .welcome h2 {
+    margin-left: 0;
+  }
+
+  .welcome form {
+    margin-left: 0;
+  }
+
+  .welcome input {
+    width: 90vw;
+  }
+
+  #guest {
+    margin-left: 0;
+  }
+
+  .login {
+    height: 15vh;
+  }
+}
+
 button {
   outline: none;
   font-family: 'Ubuntu', sans-serif;
-  border: none;
   transition: 200ms;
 }
 
 button:hover {
-background: #7C00FF;
+  background: #7C00FF;
+  color: white;
+  cursor: pointer;
+  border: 1px solid #7C00FF;
 }
 
 #guest {
@@ -122,15 +169,19 @@ background: #7C00FF;
 .artistList {
   height: auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  background: linear-gradient(#111, #222);
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  /* background: linear-gradient(#111, #222); */
+  background: #eee;
   text-align: center;
+  width: 60vw;
+  margin: auto;
+  padding: 0 20px 0 20px;
 }
 
 .artistList h2 {
   grid-column-start: 1;
-  grid-column-end: 7;
-  color: #ddd;
+  grid-column-end: 5;
+  color: #111;
   font-size: 5vw;
 }
 
@@ -150,6 +201,7 @@ background: #7C00FF;
   border-radius: 50%;
   border: 1px solid #222;
   margin-bottom: 5px;
+  border: 5px solid #111;
 }
 
 .artist img:hover {
@@ -158,7 +210,7 @@ background: #7C00FF;
 
 .artist h3 {
   font-size: 2vw;
-  color: #ddd;
+  color: #111;
   transition: 300ms;
 }
 
@@ -167,14 +219,148 @@ background: #7C00FF;
   text-decoration: underline;
 }
 
+.profile-page {
+  display: flex;
+  justify-content: center;
+}
+
 .artist-profile {
-  margin-left: 10px;
-  height: 80vh;
+  min-height: 100vh;
+  height: auto;
+  overflow: visible;
+  width: 60vw;
+  background: #eee;
+  padding: 50px;
+}
+
+.artist-profile h1 {
+  font-size: 5vh;
 }
 
 .artist-profile button {
-  border: 1px solid black;
   border-radius: 5px;
+}
+
+#back {
+  height: 30px;
+  position: relative;
+  bottom: 5vh;
+  right:
+}
+
+.about-artist {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  height: 10vh;
+  margin-bottom: 10px;
+}
+
+.about-artist img {
+  border-radius: 50%;
+  height: 10vh;
+  width: 10vh;
+  border: 5px solid #111;
+  margin-left: 10px;
+}
+
+.about-artist h1 {
+  margin-top: 0;
+  font-size: 60px;
+}
+
+.about-artist p {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  margin: 0;
+}
+
+.album {
+  padding-bottom: 5px;
+  border-bottom: 1px solid black;
+  background: #444;
+  height: 30vh;
+  width: auto;
+  margin: 5px;
+  color: white;
+  transition: 1s cubic-bezier(.17, .67, .83, .67);
+  padding-left: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  box-shadow: 2px 5px 6px 1px rgba(0,0,1,0.28);
+}
+
+.album img {
+  height: 15vh;
+  width: 15vh;
+  grid-column-start: 2;
+  margin: auto;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  border: 5px solid black;
+  border-radius: 50%;
+}
+
+.selected-album {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  background: #444;
+  color: white;
+  transition: 1s cubic-bezier(.17, .67, .83, .67);
+  margin: 5px;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 5px 6px 1px rgba(0,0,1,0.28);
+}
+
+.selected-album:hover {
+  cursor: pointer;
+}
+
+.selected-album img {
+  height: 20vh;
+  width: 20vh;
+  margin: auto;
+  border-radius: 50%;
+  border: 5px solid black;
+  margin-bottom: 10px;
+}
+
+.song {
+  display: flex;
+}
+
+audio {
+  width: 90%;
+  display: inline;
+  transition: 5s;
+}
+
+.album-name {
+  font-size: 25px;
+  margin-bottom: 0;
+}
+
+.album-genre {
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.album:hover {
+  cursor: pointer;
+  background: #111;
+}
+
+.albumList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+}
+
+.edit-album form {
+  background: grey;
+  height: 500px;
 }
 
 ::selection {

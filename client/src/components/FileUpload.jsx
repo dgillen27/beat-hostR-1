@@ -21,7 +21,7 @@ class FileUpload extends Component {
         'Content-Type': 'multipart/form-data'
       }
     }).then(response => {
-      console.log(response.data.Location);
+      console.log(response);
     }).catch(error => {
       console.log(error);
     });
