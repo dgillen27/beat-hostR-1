@@ -1,6 +1,10 @@
 .App {
-  font-family: 'Ubuntu', sans-serif;
-  background: #333;
+  font-family: 'Exo 2', sans-serif;
+  background: #222;
+}
+
+h2 {
+  font-family: 'Play', sans-serif;
 }
 
 a {
@@ -55,7 +59,7 @@ a {
   display: flex;
   flex-direction: column;
   min-height: 80vh;
-  background: linear-gradient(#666, #999);
+  background: linear-gradient(#111, #333);
   overflow: scroll;
 }
 
@@ -132,24 +136,29 @@ a {
 
 button {
   outline: none;
+  border: 1px solid transparent;
   font-family: 'Ubuntu', sans-serif;
-  transition: 200ms;
+  transition: 500ms;
+  background: #7C00FF;
+  color: white;
+  border-radius: 5px;
 }
 
 button:hover {
-  background: #7C00FF;
+  outline: none;
+  background: #ff4422;
   color: white;
   cursor: pointer;
-  border: 1px solid #7C00FF;
+  transition: 500ms;
 }
 
 #guest {
- width: 125px;
- margin-left: 100px;
- margin-top: 10px;
- height: 35px;
- font-size: 15px;
- border-radius: 5px;
+  width: 125px;
+  margin-left: 100px;
+  margin-top: 10px;
+  height: 35px;
+  font-size: 15px;
+  border-radius: 5px;
 }
 
 .footer {
@@ -170,10 +179,9 @@ button:hover {
   height: auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  /* background: linear-gradient(#111, #222); */
-  background: #eee;
+  background: #111;
   text-align: center;
-  width: 60vw;
+  width: 80vw;
   margin: auto;
   padding: 0 20px 0 20px;
 }
@@ -181,37 +189,41 @@ button:hover {
 .artistList h2 {
   grid-column-start: 1;
   grid-column-end: 5;
-  color: #111;
+  color: #eee;
   font-size: 5vw;
 }
 
 .artist {
-  width: 100%;
-  height: 24vw;
+  width: 20vw;
+  height: 20vw;
   background: transparent;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 50px;
 }
 
 .artist img {
-  height: 50%;
-  width: 90%;
-  border-radius: 50%;
+  height: 80%;
+  width: 80%;
+  border-radius: 75%;
   border: 1px solid #222;
-  margin-bottom: 5px;
   border: 5px solid #111;
+  margin-top: 20%;
+  border: 2px solid #111;
 }
 
 .artist img:hover {
   cursor: pointer;
+  border: 2px solid black;
 }
 
 .artist h3 {
-  font-size: 2vw;
-  color: #111;
+  font-size: 1vw;
+  color: #eee;
   transition: 300ms;
+  margin-top: 10px;
 }
 
 .artist h3:hover {
@@ -281,7 +293,7 @@ button:hover {
   background: #444;
   height: 30vh;
   width: auto;
-  margin: 5px;
+  margin: 10px;
   color: white;
   transition: 1s cubic-bezier(.17, .67, .83, .67);
   padding-left: 10px;
@@ -291,14 +303,13 @@ button:hover {
 }
 
 .album img {
-  height: 15vh;
-  width: 15vh;
+  height: 18vh;
+  width: 18vh;
   grid-column-start: 2;
   margin: auto;
   grid-row-start: 1;
   grid-row-end: 3;
-  border: 5px solid black;
-  border-radius: 50%;
+  border: 1px solid #eee;
 }
 
 .selected-album {
@@ -323,8 +334,8 @@ button:hover {
   width: 20vh;
   margin: auto;
   border-radius: 50%;
-  border: 5px solid black;
-  margin-bottom: 10px;
+  border: 1px solid #eee;
+  margin-bottom: 20px;
 }
 
 .song {

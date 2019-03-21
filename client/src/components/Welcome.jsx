@@ -39,7 +39,6 @@ class Welcome extends Component {
             name="submit"
             value="submit">Submit</button>
         </form>
-        <button id="guest" type="button">Enter as Guest</button>
       </div>
     )
   }
