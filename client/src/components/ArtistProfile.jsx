@@ -17,7 +17,6 @@ class ArtistProfile extends Component {
 
     this.checkUser = this.checkUser.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.deleteAlbum = this.deleteAlbum.bind(this);
     this.expandAlbumSongs = this.expandAlbumSongs.bind(this);
   }
 
@@ -46,14 +45,6 @@ class ArtistProfile extends Component {
     this.setState({
       music: resp.music
     });
-  };
-
-  async deleteAlbum(userId, albumId) {
-    // const song = await deleteAlbum();
-    // this.setState({
-    //   albums: this.state.albums.filter(album => (1/albumform/create
-    //   ))
-    // })
   };
 
   expandAlbumSongs(albumId) {

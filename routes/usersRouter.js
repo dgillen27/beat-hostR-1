@@ -1,6 +1,6 @@
 const express = require('express');
 const { User, Album, Song } = require('../models')
-const { hashPassword, isAuthorized, genToken } = require('../auth');
+const { hashPassword, isAuthorized, genToken, restrict } = require('../auth');
 const albumsRouter = require('./albumsRouter');
 
 const usersRouter = express.Router();
@@ -20,7 +20,7 @@ const buildAuthResponse = (user) => {
   };
 };
 
-usersRouter.get('/', async (req, res) => {
+usersRouter.get('/', restrict, async (req, res) => {
   try {
     const users =  await User.findAll();
     res.json({ users });
@@ -70,7 +70,7 @@ usersRouter.post('/login', async (req, res) => {
   }
 })
 
-usersRouter.get('/user-id/:id', async (req, res) => {
+usersRouter.get('/user-id/:id', restrict, async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id);
     res.json({ user });
@@ -80,7 +80,7 @@ usersRouter.get('/user-id/:id', async (req, res) => {
   };
 });
 
-usersRouter.put('/user-id/:id', async (req, res) => {
+usersRouter.put('/user-id/:id', restrict, async (req, res) => {
   try {
     const { password, email, artist_name } = req.body;
     const user = await User.findByPk(req.params.id);
@@ -97,7 +97,7 @@ usersRouter.put('/user-id/:id', async (req, res) => {
   }
 })
 
-usersRouter.delete('/user-id/:id', async (req, res) => {
+usersRouter.delete('/user-id/:id', restrict, async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id);
     const resp = await user.destroy();
@@ -108,7 +108,7 @@ usersRouter.delete('/user-id/:id', async (req, res) => {
   };
 });
 
-usersRouter.get('/user-id/:id/music', async (req, res) => {
+usersRouter.get('/user-id/:id/music', restrict, async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id);
     const albums = await user.getAlbums();
@@ -134,7 +134,7 @@ usersRouter.get('/user-id/:id/music', async (req, res) => {
   }
 })
 
-usersRouter.use('/user-id/:id/albums', (req, res, next) => {
+usersRouter.use('/user-id/:id/albums', restrict, (req, res, next) => {
   res.locals.userId = req.params.id;
   next()
 },  albumsRouter);

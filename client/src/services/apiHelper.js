@@ -12,18 +12,6 @@ const api = axios.create({
   baseURL: BASE_URL,
 });
 
-//we will talk about why I did this
-const apiAuth = (token) => {
-  const apiAuth = axios.create({
-    baseURL: BASE_URL,
-    headers: {
-    authorization: `Bearer ${token}`
-    },
-  });
-  return apiAuth;
-};
-
-///Not sure if this is the way we want to do this
 const updateToken = (token) => {
   localStorage.setItem('authToken', token);
   api.defaults.headers.common.authorization = `Bearer ${token}`;
@@ -37,9 +25,8 @@ const updateToken = (token) => {
 const postUser = async (user) => {
   try {
     const resp = await api.post(`/users`, user);
-    return resp.data;
-//we agree this is the best way, but we need to figure logout
     updateToken(resp.data.token);
+    return resp.data;
   } catch(e) {
     console.error(e);
   };
@@ -48,9 +35,8 @@ const postUser = async (user) => {
 const loginUser = async (user) => {
   try {
     const resp = await api.post(`/users/login`, user);
-    return resp.data;
-//same as above
     updateToken(resp.data.token);
+    return resp.data;
   } catch(e) {
     console.error(e);
   };

@@ -9,6 +9,7 @@ const fileType = require('file-type');
 const bluebird = require('bluebird');
 const multiparty = require('multiparty');
 const { Album, User } = require('./models');
+const { restrict } = require('./auth');
 
 const PORT = process.env.PORT || 4000;
 
@@ -84,7 +85,7 @@ const uploadFile = (buffer, name, type) => {
   return s3.upload(params).promise();
 };
 
-app.post('/create-album', (request, response) => {
+app.post('/create-album', restrict, (request, response) => {
   try{
     const form = new multiparty.Form();
     form.parse(request, async (error, fields, files) => {
@@ -118,7 +119,7 @@ app.post('/create-album', (request, response) => {
     }
 });
 
-app.post('/create-song', (request, response) => {
+app.post('/create-song', restrict, (request, response) => {
   try{
     const form = new multiparty.Form();
     form.parse(request, async (error, fields, files) => {
