@@ -37,6 +37,7 @@ class ArtistList extends Component {
         <h2>Checkout Our Artists</h2>
         {users && users.map(artist => (
           <div className="artist" key={artist.id}>
+            <img onClick={() => this.handleClick(artist.id)} src="https://i.ytimg.com/vi/vJDISmFGbMQ/maxresdefault.jpg" alt="" />
             <h3 onClick={() => this.handleClick(artist.id)}>{artist.artist_name}</h3>
           </div>
         ))}

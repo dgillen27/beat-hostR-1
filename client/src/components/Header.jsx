@@ -33,7 +33,7 @@ class Header extends Component {
               onSubmit={handleLogin}
               type="submit"
               name="submit"
-              value="submit" />
+              value="submit">Submit</button>
           </form>
         }
         {

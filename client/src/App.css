@@ -41,15 +41,16 @@ a {
 .welcome {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  background: linear-gradient(#111, #222);
+  height: 80vh;
+  background: linear-gradient(#aaa, #ddd);
 }
 
 .welcome h2 {
   font-size: 50px;
   color: #ddd;
   margin-left: 100px;
-  margin-top: 125px;
+  margin-top: 3vh;
+  margin-bottom: 1vh;
 }
 
 .welcome form {
@@ -58,7 +59,7 @@ a {
 
 .welcome input {
  width: 30vw;
- height: 50px;
+ height: 6vh;
  border-radius: 5px;
  border: 2px solid white;
  font-size: 20px;
@@ -88,12 +89,12 @@ a {
 button {
   outline: none;
   font-family: 'Ubuntu', sans-serif;
-  border: none;
   transition: 200ms;
 }
 
 button:hover {
-background: #7C00FF;
+  background: #7C00FF;
+  color: white;
 }
 
 #guest {
@@ -122,15 +123,19 @@ background: #7C00FF;
 .artistList {
   height: auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  background: linear-gradient(#111, #222);
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  /* background: linear-gradient(#111, #222); */
+  background: #eee;
   text-align: center;
+  width: 80vw;
+  margin: auto;
+  padding: 0 20px 0 20px;
 }
 
 .artistList h2 {
   grid-column-start: 1;
-  grid-column-end: 7;
-  color: #ddd;
+  grid-column-end: 6;
+  color: #111;
   font-size: 5vw;
 }
 
@@ -150,6 +155,7 @@ background: #7C00FF;
   border-radius: 50%;
   border: 1px solid #222;
   margin-bottom: 5px;
+  border: 5px solid #111;
 }
 
 .artist img:hover {
@@ -158,7 +164,7 @@ background: #7C00FF;
 
 .artist h3 {
   font-size: 2vw;
-  color: #ddd;
+  color: #111;
   transition: 300ms;
 }
 
@@ -167,14 +173,122 @@ background: #7C00FF;
   text-decoration: underline;
 }
 
+.profile-page {
+  display: flex;
+  justify-content: center;
+}
+
 .artist-profile {
-  margin-left: 10px;
-  height: 80vh;
+  min-height: 100vh;
+  height: auto;
+  overflow: visible;
+  width: 60vw;
+  background: #eee;
+  padding: 50px;
+}
+
+.artist-profile h1 {
+  font-size: 5vh;
 }
 
 .artist-profile button {
   border: 1px solid black;
   border-radius: 5px;
+}
+
+.about-artist {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  height: 10vh;
+  margin-bottom: 10px;
+}
+
+.about-artist img {
+  border-radius: 50%;
+  height: 10vh;
+  width: 10vh;
+  border: 5px solid #111;
+  margin-left: 10px;
+}
+
+.album {
+  padding-bottom: 5px;
+  border-bottom: 1px solid black;
+  background: #444;
+  height: 30vh;
+  width: auto;
+  margin: 5px;
+  color: white;
+  transition: 1s cubic-bezier(.17, .67, .83, .67);
+  padding-left: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.album img {
+  height: 15vh;
+  width: 15vh;
+  grid-column-start: 2;
+  margin: auto;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  border: 5px solid black;
+  border-radius: 50%;
+}
+
+.selected-album {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  background: #444;
+  color: white;
+  transition: 1s cubic-bezier(.17, .67, .83, .67);
+  margin: 5px;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.selected-album img {
+  height: 20vh;
+  width: 20vh;
+  margin: auto;
+  border-radius: 50%;
+  border: 5px solid black;
+  margin-bottom: 10px;
+}
+
+.song {
+  display: flex;
+}
+
+audio {
+  width: 90%;
+  display: inline;
+  transition: 5s;
+}
+
+.album-name {
+  font-size: 25px;
+}
+
+.album-genre {
+  font-size: 20px;
+}
+
+.album:hover {
+  cursor: pointer;
+  background: #111;
+}
+
+.albumList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+}
+
+.edit-album form {
+  background: grey;
+  height: 500px;
 }
 
 ::selection {

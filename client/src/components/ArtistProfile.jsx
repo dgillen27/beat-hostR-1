@@ -43,7 +43,6 @@ class ArtistProfile extends Component {
 
   async getArtistMusic(id) {
     const resp = await getUserMusic(id);
-    console.log(resp.music);
     this.setState({
       music: resp.music
     });
@@ -74,11 +73,18 @@ class ArtistProfile extends Component {
     const { user, token, artist } = this.props;
 
     return (
+      <div className="profile-page">
       <div className="artist-profile">
-        <div onClick={() => this.props.history.push('/users')}>Back to Artists</div>
-        <h1>{currentArtist.artist_name}</h1>
+        <button onClick={() => this.props.history.push('/users')}>Back to Artists</button>
+        <div className="about-artist">
+          <img src="https://i.ytimg.com/vi/vJDISmFGbMQ/maxresdefault.jpg" alt="" />
+          <h1>{currentArtist.artist_name}</h1>
+          <br/>
+          <p>This is me I am an artist wow look at me so artist congrats its a person who can do art wow
+          so much many art yeah yeah yeah</p>
+        </div>
         { isArtistUser &&
-            <div onClick={() => this.handleClick()}>Create Album</div>
+            <button onClick={() => this.handleClick()}>Create Album</button>
         }
         <div className="albumList">
           {music.map((album, id) => (
@@ -86,13 +92,14 @@ class ArtistProfile extends Component {
                 ev.preventDefault()
                 this.expandAlbumSongs(album.id)
                 }}
-                className="album">
-                <p className="album-name">Name: {album.title}</p>
-                <p className="album-genre">Genre: {album.genre}</p>
+                className={album.id === showMore ? 'selected-album': "album"}>
+                  <p className="album-name">Name: {album.title}</p>
+                  <p className="album-genre">Genre: {album.genre}</p>
+                <img src="https://i.ytimg.com/vi/vJDISmFGbMQ/maxresdefault.jpg" alt="" />
                 {album.id === showMore &&
-                  <div>
+                  <div className="songs">
                     {album.songs.map(song => (
-                      <div key={song.id}>
+                      <div className="song" key={song.id}>
                         <p>{song.title}</p>
                         <audio controls src={song.file_url} type='audio'></audio>
                       </div>
@@ -102,6 +109,7 @@ class ArtistProfile extends Component {
               </div>
             ))}
         </div>
+      </div>
       </div>
     );
   }
