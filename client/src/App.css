@@ -60,7 +60,6 @@ a {
   flex-direction: column;
   min-height: 80vh;
   background: linear-gradient(#111, #333);
-  overflow: scroll;
 }
 
 .welcome h2 {

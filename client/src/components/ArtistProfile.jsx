@@ -73,7 +73,7 @@ class ArtistProfile extends Component {
     const { user, token, artist } = this.props;
 
     return (
-      <div clasName="profile-page">
+      <div className="profile-page">
         <div className="artist-profile">
           <button id="back" onClick={() => this.props.history.push('/users')}>Back to Artists</button>
           <div className="about-artist">
@@ -91,7 +91,7 @@ class ArtistProfile extends Component {
                 ev.preventDefault()
                 this.expandAlbumSongs(album.id)
                 }}
-                className="album">
+                className={album.id === showMore ? 'selected-album' : "album"}>
                 <p className="album-name">Name: {album.title}</p>
                 <p className="album-genre">Genre: {album.genre}</p>
                 <img src="https://cms.qz.com/wp-content/uploads/2017/01/psychedelic-pattern.jpg?quality=75&strip=all&w=410&h=231" alt="album-image" />
