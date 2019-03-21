@@ -175,6 +175,7 @@ button:hover {
 }
 
 .artistList {
+  min-height: 80vh;
   height: auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;

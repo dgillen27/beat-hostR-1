@@ -121,6 +121,7 @@ usersRouter.get('/user-id/:id/music', async (req, res) => {
       id: album.id,
       title: album.title,
       genre: album.genre,
+      image_url: album.image_url,
       createdAt: album.createdAt,
       updatedAt: album.updatedAt,
       userId: album.userId,
