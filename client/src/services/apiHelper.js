@@ -6,15 +6,16 @@ import axios from 'axios';
 //We have put for creating, but update edit for put we need to decide naming scheme
 //////////////////////////////////////////////////////
 
+const BASE_URL = 'http://localhost:4000';
 
 const api = axios.create({
-  baseURL: 'http://localhost:4000'
+  baseURL: BASE_URL,
 });
 
 //we will talk about why I did this
 const apiAuth = (token) => {
   const apiAuth = axios.create({
-    baseURL: 'http://localhost:4000',
+    baseURL: BASE_URL,
     headers: {
     authorization: `Bearer ${token}`
     },
@@ -104,13 +105,17 @@ const getUserAlbums = async (userId) => {
 };
 
 //changed slug, path, and moved to keep concerns together
-const postAlbum = async (userId, newAlbum) => {
+const postAlbum = async (formData) => {
   try {
-    const resp = await api.post(`users/user-id/${userId}/albums`, newAlbum);
+    const resp = await axios.post(`${BASE_URL}/create-album`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+    });
     return resp.data;
   } catch(e) {
-    console.error(e);
-  };
+    console.log(e);
+  }
 };
 
 //get specific album
@@ -157,16 +162,6 @@ const getAlbumSongs = async (userId, albumId) => {
   };
 };
 
-//changed path, arguments
-const postSong = async (userId, albumId, newSong) => {
-  try {
-    const resp = await api.post(`/users/user-id/${userId}/albums/album-id/${albumId}/songs`, newSong);
-    return resp.data;
-  } catch(e) {
-    console.error(e);
-  };
-};
-
 //created this call for edit
 const editSong = async (userId, albumId, songId, updatedSong) => {
   try {
@@ -186,6 +181,23 @@ const deleteSong = async (userId, albumId, songId) => {
     console.error(e);
   };
 };
+
+//////////////////////////////////////////////////////
+//AWS Section
+//////////////////////////////////////////////////////
+
+const postSong = async (formData) => {
+  try {
+    const resp = await axios.post(`${BASE_URL}/create-song`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+    });
+    return resp.data;
+  } catch(e) {
+    console.log(e);
+  }
+}
 
 //changed names and order to match
 export {
