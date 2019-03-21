@@ -8,7 +8,7 @@ const fs = require('fs');
 const fileType = require('file-type');
 const bluebird = require('bluebird');
 const multiparty = require('multiparty');
-const { Album } = require('./models');
+const { Album, User } = require('./models');
 
 const PORT = process.env.PORT || 4000;
 
@@ -41,9 +41,24 @@ app.get('/', (req, res) => {
 const addSongToDb = async (albumId, song) => {
   try {
     const album = await Album.findByPk(albumId);
+
     const resp = await album.createSong(song);
     const newSong = resp.dataValues;
+
     return newSong
+  } catch(e) {
+    return e;
+  }
+}
+
+const addAlbumToDb = async (userId, album) => {
+  try {
+    const user = await User.findByPk(userId);
+
+    const resp = await user.createAlbum(album);
+    const newAlbum = resp.dataValues
+
+    return newAlbum;
   } catch(e) {
     return e;
   }
@@ -69,15 +84,47 @@ const uploadFile = (buffer, name, type) => {
   return s3.upload(params).promise();
 };
 
+app.post('/create-album', (request, response) => {
+  try{
+    const form = new multiparty.Form();
+    form.parse(request, async (error, fields, files) => {
+      if (error) throw new Error(error);
+      try {
+        const { title, userId, genre } = fields;
+        console.log( title[0], userId[0], genre[0]);
+        if (files.file) {
+          const path = files.file[0].path;
+          const buffer = fs.readFileSync(path);
+          const type = fileType(buffer);
+          const timestamp = Date.now().toString();
+          const fileName = `bucketFolder/${timestamp}-lg`;
+          const data = await uploadFile(buffer, fileName, type);
+          const image_url = data.Location;
+          console.log(data.Location);
+          const album = await addAlbumToDb(userId[0], { title: title[0], genre: genre[0], image_url });
+          return response.status(200).json({ album });
+        } else {
+          const album = await addAlbumToDb(userId[0], { title: title[0], genre: genre[0] })
+          return response.status(200).json({ album });
+        }
+      } catch (error) {
+        console.log(error);
+        return response.status(400).send(error);
+      }
+    });}
+    catch(e){
+      console.log(e);
+      return response.status(500).send(e)
+    }
+});
+
 app.post('/create-song', (request, response) => {
-  console.log("called");
   try{
     const form = new multiparty.Form();
     form.parse(request, async (error, fields, files) => {
       if (error) throw new Error(error);
       try {
         const { title, albumId } = fields;
-        console.log( title[0], albumId[0]);
         const path = files.file[0].path;
         const buffer = fs.readFileSync(path);
         const type = fileType(buffer);
@@ -86,7 +133,7 @@ app.post('/create-song', (request, response) => {
         const data = await uploadFile(buffer, fileName, type);
         const file_url = data.Location;
         console.log(data.Location);
-        const song = await addSongToDb(albumId[0], {title: title[0], file_url});
+        const song = await addSongToDb(albumId[0], { title: title[0], file_url });
         return response.status(200).json({ song });
       } catch (error) {
         return response.status(400).send(error);

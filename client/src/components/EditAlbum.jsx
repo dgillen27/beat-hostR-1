@@ -3,7 +3,7 @@ import { Link, Route, withRouter } from 'react-router-dom';
 import EditSong from './EditSong';
 import CreateNewSong from './CreateNewSong';
 import ArtistProfile from './ArtistProfile';
-import { getAlbum, postAlbum, editAlbum, getAlbumSongs, deleteSong } from '../services/apiHelper';
+import { getAlbum, postAlbum, editAlbum, getAlbumSongs, deleteSong, deleteAlbum } from '../services/apiHelper';
 
 
 class EditAlbum extends Component {
@@ -27,6 +27,7 @@ class EditAlbum extends Component {
     this.goBackToUser = this.goBackToUser.bind(this);
     this.checkForCreate = this.checkForCreate.bind(this);
     this.handleSongDelete = this.handleSongDelete.bind(this);
+    this.handleAlbumDelete = this.handleAlbumDelete.bind(this);
   }
 
   async checkForCreate() {
@@ -42,6 +43,7 @@ class EditAlbum extends Component {
           albumForm: {
             title: album.title,
             genre: album.genre,
+            file: null,
           }
         });
       } catch(e) {
@@ -74,14 +76,17 @@ class EditAlbum extends Component {
     }
 
   async handleNewAlbumSubmit() {
-    const { title, genre } = this.state.albumForm;
+    const { title, genre, file } = this.state.albumForm;
+    const userId = this.props.match.params.userId;
     if (title && genre) {
-      const newAlbum = {
-        title,
-        genre
-      }
-      const { userId } = this.props.match.params;
-      const createdAlbum = await postAlbum(userId, newAlbum);
+      const formData = new FormData();
+      this.state.file && formData.append('file', this.state.file[0]);
+      formData.append('title', title);
+      formData.append('genre', genre);
+      formData.append('userId', userId);
+      console.log(formData.title);
+      const resp = await postAlbum(formData);
+      console.log(resp);
       this.setState({
         formError: false,
         albumForm: {
@@ -110,11 +115,21 @@ class EditAlbum extends Component {
       this.setState({
         formError: false,
       })
-      // this.goBackToUser();
     } else {
       this.setState({
         formError: true,
       })
+    }
+  }
+
+  async handleAlbumDelete() {
+    const {userId} = this.props.match.params;
+    const albumId = this.state.album.id;
+    try {
+      const resp = await deleteAlbum(userId, albumId);
+      //need to redirect back to artist page
+    } catch(e) {
+      console.log(e);
     }
   }
 
@@ -129,37 +144,55 @@ class EditAlbum extends Component {
     }
   }
 
+  handleFileUpload = (event) => {
+    this.setState({
+      file: event.target.files
+    });
+  };
+
   render() {
     const { title, genre } = this.state.albumForm;
     const { formError, album, songs } = this.state;
     const albumId = this.state.albumId
     return (
       <div className="edit-music">
+        <button onClick={() => this.props.history.push(`/users/${this.props.match.params.userId}`)}>Back to Profile</button>
         <div className="edit-create-album">
-          <h1>Edit/Create Album</h1>
+          <h1>{albumId === 'create' ? 'Create a New Album' : 'Edit Your Album'}</h1>
           <form onSubmit={(ev) => {
             ev.preventDefault();
             return (
             albumId === 'create' ? this.handleNewAlbumSubmit() : this.handleEditAlbumSubmit())}}>
-            <label htmlFor="title">Title:</label>
+            <label htmlFor="title">Title:</label><br />
             <input
               type="text"
               onChange={this.handleChange}
               id="title"
               name="title"
-              value={title} />
-            <label htmlFor="genre">Genre:</label>
+              value={title} /><br/>
+            <label htmlFor="genre">Genre:</label><br />
             <input
               type="text"
               onChange={this.handleChange}
               id="genre"
               name="genre"
-              value={genre} />
-            <input
-              type="submit" />
+              value={genre} /><br />
+            {albumId === 'create' &&
+              <div>
+                <label htmlFor="song-file">Upload your album image:</label><br/>
+                <input
+                  type='file'
+                  name='album-file'
+                  label='upload file'
+                  onChange={this.handleFileUpload} /><br/>
+              </div>
+            }
+            <button
+              type="submit" >{albumId === 'create' ? 'Create a New Album' : 'Edit Your Album'}</button>
           </form>
             {formError && <p className="input-error-message">Please enter a title AND a genre</p>}
           </div>
+          { album && <button onClick={this.handleAlbumDelete}>Delete Album</button>}
         { album &&
         <div className="edit-create-song">
           <CreateNewSong

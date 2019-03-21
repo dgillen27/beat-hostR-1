@@ -16,22 +16,6 @@ albumsRouter.get('/', async (req, res) => {
   };
 });
 
-albumsRouter.post('/', async (req, res) => {
-  try {
-    const { title, genre } = req.body;
-    const { userId } = res.locals;
-
-    const user = await User.findByPk(userId);
-    const newAlbum = await user.createAlbum({ title, genre });
-
-    const album = newAlbum.dataValues
-    res.json({ album });
-  } catch(e) {
-    console.log(e);
-    res.status(500).send(e.message);
-  };
-});
-
 albumsRouter.get('/album-id/:id', async (req, res) => {
   try {
     const albumId = req.params.id;
