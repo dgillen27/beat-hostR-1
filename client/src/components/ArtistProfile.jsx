@@ -29,9 +29,9 @@ class ArtistProfile extends Component {
     };
   };
 
-  handleClick(album) {
+  handleClick(albumId) {
     const userId = this.state.currentArtist.id;
-    this.props.history.push(`/users/${userId}/albumform${album ? `/${album.id}` : '/create'}`);
+    this.props.history.push(`/users/${userId}/albumform${albumId ? `/${albumId}` : '/create'}`);
   }
 
   async getArtist() {
@@ -43,7 +43,6 @@ class ArtistProfile extends Component {
 
   async getArtistMusic(id) {
     const resp = await getUserMusic(id);
-    console.log(resp.music);
     this.setState({
       music: resp.music
     });
@@ -89,6 +88,9 @@ class ArtistProfile extends Component {
                 className="album">
                 <p className="album-name">Name: {album.title}</p>
                 <p className="album-genre">Genre: {album.genre}</p>
+                { isArtistUser &&
+                  <div onClick={() => this.handleClick(album.id)}>Edit Album</div>
+                }
                 {album.id === showMore &&
                   <div>
                     {album.songs.map(song => (

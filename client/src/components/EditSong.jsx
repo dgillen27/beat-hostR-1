@@ -37,7 +37,6 @@ class EditSong extends Component {
     // const lastSong = await postSong(newSong);
     const id = this.props.match.params.id;
     const album_id = this.props.match.params.album_id;
-    this.props.history.push(`/artists/${id}/albumform/${album_id}`)
   }
 
 
@@ -50,7 +49,6 @@ class EditSong extends Component {
       <div className="edit-album">
         <h1>Create Song</h1>
         <form onSubmit={this.handleSubmit}>
-
           <label htmlFor="title">
             Title:
           </label>
@@ -63,19 +61,10 @@ class EditSong extends Component {
             />
 
           <label htmlFor="file-url">
-            File URL:
+            File:
           </label>
           <input
-            type="text"
-            onChange={this.handleChange}
-            id="file-url"
-            name="file_url"
-            value={file_url}
-            />
-
-          <input
             type="submit"
-            onSubmit={this.handleSubmit}
             />
         </form>
       </div>
