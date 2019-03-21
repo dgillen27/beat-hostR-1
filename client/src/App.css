@@ -1,9 +1,14 @@
 .App {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Exo 2', sans-serif;
 }
 
 a {
   color: #ddd;
+}
+
+
+h2 {
+  font-family: 'Play', sans-serif;  
 }
 
 .login {
@@ -38,18 +43,33 @@ a {
    color: #ddd;
  }
 
+ #logo {
+   float: left;
+   position: relative;
+   height: 60px;
+   width: 85px;
+   left: 20vh;
+ }
+
+ #brand {
+  float: left; 
+  position: relative;
+   left: 20vh;
+ }
+
 .welcome {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  background: linear-gradient(#111, #222);
+  height: 80vh;
+  background: linear-gradient(-120deg, rgb(182, 171, 175), #83ABAA);
 }
 
 .welcome h2 {
   font-size: 50px;
-  color: #ddd;
+  color: white;
   margin-left: 100px;
-  margin-top: 125px;
+  margin-top: 3vh;
+  margin-bottom: 0;
 }
 
 .welcome form {
@@ -58,7 +78,7 @@ a {
 
 .welcome input {
  width: 30vw;
- height: 50px;
+ height: 6vh;
  border-radius: 5px;
  border: 2px solid white;
  font-size: 20px;
@@ -71,7 +91,7 @@ a {
 }
 
 .welcome h3 {
-  color: #ddd;
+  color: rgba(255, 255, 255, 0.726);
   font-size: 30px;
   margin: 5px 0 5px 0;
 }
@@ -87,13 +107,14 @@ a {
 
 button {
   outline: none;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Exo 2', sans-serif;
   border: none;
   transition: 200ms;
 }
 
 button:hover {
 background: #7C00FF;
+color: white;
 }
 
 #guest {
@@ -169,12 +190,21 @@ background: #7C00FF;
 
 .artist-profile {
   margin-left: 10px;
-  height: 80vh;
+  min-height: 100vh;
+  height: auto;
+  overflow: visible;
 }
 
 .artist-profile button {
   border: 1px solid black;
   border-radius: 5px;
+}
+
+.album {
+  padding-bottom: 5px;
+  border-bottom: 1px solid black;
+  background: grey;
+  height: 100%;
 }
 
 ::selection {

@@ -14,7 +14,10 @@ class Header extends Component {
     const { user, token, loginData, handleLogin, handleChange, logOut } = this.props;
     return(
       <div className="login">
-        <h2>Beat HostR</h2>
+        <div className="beatLogo">
+         <img src="https://i.imgur.com/lnMbXHt.png" id="logo" />
+        <h2 id="brand">BeatHostR</h2>
+        </div>
         { !token &&
           <form onSubmit={handleLogin}>
             <input
@@ -33,7 +36,7 @@ class Header extends Component {
               onSubmit={handleLogin}
               type="submit"
               name="submit"
-              value="submit" />
+              value="submit">Submit</button>
           </form>
         }
         {

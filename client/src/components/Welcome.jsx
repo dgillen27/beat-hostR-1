@@ -37,7 +37,7 @@ class Welcome extends Component {
             onSubmit={handleRegister}
             type="submit"
             name="submit"
-            value="submit" />
+            value="submit">Submit</button>
         </form>
         <button id="guest" type="button">Enter as Guest</button>
       </div>
