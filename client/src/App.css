@@ -59,8 +59,8 @@ a {
   display: flex;
   flex-direction: column;
   min-height: 80vh;
+  width: 100%;
   background: linear-gradient(#111, #333);
-  overflow: scroll;
 }
 
 .welcome h2 {
