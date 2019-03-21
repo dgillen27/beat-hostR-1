@@ -51,16 +51,20 @@ class App extends Component {
   async handleLogin(ev) {
     ev.preventDefault();
     const { loginData } = this.state
-    const resp = await loginUser(loginData);
-    this.setState({
-      user: resp.user,
-      token: resp.token,
-      loginData: {
-        email: '',
-        password: ''
-      }
-    });
-    this.props.history.push(`/users`);
+    try {
+      const resp = await loginUser(loginData);
+      this.setState({
+        user: resp.user,
+        token: resp.token,
+        loginData: {
+          email: '',
+          password: ''
+        }
+      });
+      this.props.history.push(`/users`);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   handleRegisterChange(ev) {

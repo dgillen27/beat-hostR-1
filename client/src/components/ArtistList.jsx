@@ -20,10 +20,14 @@ class ArtistList extends Component {
   }
 
   async getAllUsers() {
-    const resp = await getUsers();
-    this.setState({
-      users: resp.users
-    })
+    try {
+      const resp = await getUsers();
+      this.setState({
+        users: resp.users
+      })
+    } catch(e) {
+      console.log(e);
+    }
   }
 
   async componentDidMount() {
