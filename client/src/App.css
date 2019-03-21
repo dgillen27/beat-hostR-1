@@ -245,6 +245,10 @@ button:hover {
   padding: 50px;
 }
 
+.artist-profile button {
+  margin-left: 10px;
+}
+
 .artist-profile h1 {
   font-size: 5vh;
 }
@@ -333,7 +337,6 @@ button:hover {
   height: 20vh;
   width: 20vh;
   margin: auto;
-  border-radius: 50%;
   border: 1px solid #eee;
   margin-bottom: 20px;
 }
@@ -369,9 +372,37 @@ audio {
   grid-template-rows: auto;
 }
 
-.edit-album form {
-  background: grey;
-  height: 500px;
+.albumList button {
+  width: 100px;
+  height: 25px;
+}
+
+.edit-music {
+  height: 80vh;
+  color: white;
+  background: #222;
+  text-align: center;
+}
+
+.edit-create-album h1 {
+  font-size: 50px;
+  margin-top: 0;
+  padding-top: 50px;
+}
+
+.edit-create-album input {
+  margin-right: 5px;
+}
+
+.edit-create-album button {
+}
+
+.editing-songs p {
+  margin-bottom: 0;
+}
+
+#delete:hover {
+  background: red;
 }
 
 ::selection {
