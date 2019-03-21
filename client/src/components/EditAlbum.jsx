@@ -166,13 +166,13 @@ class EditAlbum extends Component {
             albumId={this.state.album.id} />
           <div>
           {songs.map( el => (
-            <div>
-              <div>{el.title}</div>
-              <div onClick={(ev) => {
+            <div className="editing-songs">
+              <p>{el.title}</p>
+              <button id="delete" onClick={(ev) => {
                 ev.preventDefault();
                 this.handleSongDelete(el.id)
                 }}>Delete Song
-              </div>
+              </button>
             </div>
           ))}
           </div>

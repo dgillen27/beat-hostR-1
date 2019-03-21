@@ -77,13 +77,13 @@ class ArtistProfile extends Component {
         <div className="artist-profile">
           <button id="back" onClick={() => this.props.history.push('/users')}>Back to Artists</button>
           <div className="about-artist">
-            <img src="https://i.ytimg.com/vi/vJDISmFGbMQ/maxresdefault.jpg" alt="artist-image"/>
+            <img src={currentArtist.image_url} alt="artist-image"/>
             <h1>{currentArtist.artist_name}</h1>
             <br />
             <p>This is me I am an artist wow look at me so artist congrats it's a person who can do art wow so much art yeah yeah yeah</p>
           </div>
           { isArtistUser &&
-              <div onClick={() => this.handleClick()}>Create Album</div>
+              <button onClick={() => this.handleClick()}>Create Album</button>
           }
           <div className="albumList">
             {music.map((album, id) => (
@@ -94,9 +94,9 @@ class ArtistProfile extends Component {
                 className={album.id === showMore ? 'selected-album' : "album"}>
                 <p className="album-name">Name: {album.title}</p>
                 <p className="album-genre">Genre: {album.genre}</p>
-                <img src="https://cms.qz.com/wp-content/uploads/2017/01/psychedelic-pattern.jpg?quality=75&strip=all&w=410&h=231" alt="album-image" />
+                <img src={album.image_url} alt="album-image" />
                 { isArtistUser &&
-                  <div onClick={() => this.handleClick(album.id)}>Edit Album</div>
+                  <button onClick={() => this.handleClick(album.id)}>Edit Album</button>
                 }
                 {album.id === showMore &&
                   <div className="songs">
