@@ -15,8 +15,6 @@ if (process.env.DATABASE_URL) {
   sequelize = new Sequelize({
     database: `p3_music_db`,
     dialect: `postgresql`,
-    username: `sequelize`,
-    password: `password`,
     operatorsAliases: false,
     define: {
       underscored: true

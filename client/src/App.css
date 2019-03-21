@@ -59,7 +59,7 @@ a {
   display: flex;
   flex-direction: column;
   min-height: 80vh;
-  background: linear-gradient(#111, #333);
+  background: linear-gradient(to bottom right, #111, #333);
 }
 
 .welcome h2 {
@@ -101,36 +101,6 @@ a {
   font-size: 15px;
   border-radius: 5px;
   transition: 200ms;
-}
-
-@media only screen and (max-width: 700px) {
-  .welcome {
-    text-align: center;
-    align-items: center;
-    min-height: 80vh;
-    background: linear-gradient(#666, #999);
-    overflow: scroll;
-  }
-
-  .welcome h2 {
-    margin-left: 0;
-  }
-
-  .welcome form {
-    margin-left: 0;
-  }
-
-  .welcome input {
-    width: 90vw;
-  }
-
-  #guest {
-    margin-left: 0;
-  }
-
-  .login {
-    height: 15vh;
-  }
 }
 
 button {
@@ -240,8 +210,8 @@ button:hover {
   min-height: 100vh;
   height: auto;
   overflow: visible;
-  width: 60vw;
-  background: #eee;
+  width: 77vw;
+  background: #111;
   padding: 50px;
 }
 
@@ -250,6 +220,7 @@ button:hover {
 }
 
 .artist-profile h1 {
+  color: white;
   font-size: 5vh;
 }
 
@@ -295,7 +266,7 @@ button:hover {
   padding-bottom: 5px;
   border-bottom: 1px solid black;
   background: #444;
-  height: 30vh;
+  min-height: 30vh;
   width: auto;
   margin: 10px;
   color: white;
@@ -303,7 +274,12 @@ button:hover {
   padding-left: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  box-shadow: 2px 5px 6px 1px rgba(0,0,1,0.28);
+  box-shadow: 1px 7px 7px 1px rgba(0, 0, 0, 1);
+}
+
+.album:hover {
+  cursor: pointer;
+  background: rgb(35, 35, 35);
 }
 
 .album img {
@@ -337,18 +313,18 @@ button:hover {
   height: 20vh;
   width: 20vh;
   margin: auto;
-  border: 1px solid #eee;
+  border: 1px solid black;
   margin-bottom: 20px;
 }
 
-.song {
-  display: flex;
+.song p {
+  margin-bottom: 7px;
 }
 
 audio {
-  width: 90%;
+  width: 97%;
   display: inline;
-  transition: 5s;
+  margin-bottom: 5px;
 }
 
 .album-name {
@@ -361,11 +337,6 @@ audio {
   margin-top: 10px;
 }
 
-.album:hover {
-  cursor: pointer;
-  background: #111;
-}
-
 .albumList {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -375,6 +346,128 @@ audio {
 .albumList button {
   width: 100px;
   height: 25px;
+}
+
+@media only screen and (max-width: 700px) {
+
+  .login {
+    height: 11vh;
+  }
+
+  .login h2 {
+    font-size: 6vw;
+    margin-left: 10px;
+  }
+
+  .login form {
+    margin-left: 15vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .login input {
+    grid-column-start: 1;
+    margin-bottom: 5px;
+  }
+
+  .login button {
+    height: 7vh;
+    grid-column-start: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+  }
+
+  .after-login {
+    margin-right: 5px;
+  }
+
+  .after-login p {
+    margin-right: 5px;
+    padding-right: 3px;
+  }
+
+  .welcome {
+    text-align: center;
+    align-items: center;
+    min-height: 79vh;
+  }
+
+  .welcome h2 {
+    margin-left: 0;
+  }
+
+  .welcome form {
+    margin-left: 0;
+  }
+
+  .welcome input {
+    width: 90vw;
+  }
+
+  #guest {
+    margin-left: 0;
+  }
+
+  .artistList {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .artistList h2 {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+
+  .artist {
+    width: 40vw;
+    height: 40vw;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+
+  .artist h3 {
+    font-size: 3vh;
+    color: #eee;
+    transition: 300ms;
+    margin-top: 10px;
+  }
+
+  .artist-profile {
+    min-height: 100vh;
+    height: auto;
+    width: 100vw;
+  }
+
+  .about-artist {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 9vh;
+    margin-bottom: 10px;
+  }
+
+  .albumList {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .selected-album {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    background: #444;
+    color: white;
+    transition: 1s cubic-bezier(.17, .67, .83, .67);
+    margin: 5px;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 5px 6px 1px rgba(0,0,1,0.28);
+  }
+
 }
 
 .edit-music {
@@ -392,9 +485,6 @@ audio {
 
 .edit-create-album input {
   margin-right: 5px;
-}
-
-.edit-create-album button {
 }
 
 .editing-songs p {

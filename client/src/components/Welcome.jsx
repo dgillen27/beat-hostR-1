@@ -32,7 +32,7 @@ class Welcome extends Component {
             type="password"
             name="password"
             value={registerData.password} />
-          <h3>Submit or Enter as Guest</h3>
+          <h3>Register</h3>
           <button
             onSubmit={handleRegister}
             type="submit"
