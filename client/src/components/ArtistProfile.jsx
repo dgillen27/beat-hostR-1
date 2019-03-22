@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Link, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import EditAlbum from './EditAlbum';
-import { getUser, getUserMusic, deleteAlbum } from '../services/apiHelper';
+import { getUser, getUserMusic } from '../services/apiHelper';
 
 class ArtistProfile extends Component {
   constructor() {
@@ -65,14 +63,13 @@ class ArtistProfile extends Component {
 
   render() {
     const { music, isArtistUser, currentArtist, showMore } = this.state;
-    const { user, token, artist } = this.props;
 
     return (
       <div className="profile-page">
         <div className="artist-profile">
           <button id="back" onClick={() => this.props.history.push('/users')}>Back to Artists</button>
           <div className="about-artist">
-            <img src={currentArtist.image_url} alt="artist-image"/>
+            <img src={currentArtist.image_url} alt="artist-profile"/>
             <h1>{currentArtist.artist_name}</h1>
           </div>
           { isArtistUser &&
@@ -87,7 +84,7 @@ class ArtistProfile extends Component {
                 className={album.id === showMore ? 'selected-album' : "album"}>
                 <p className="album-name">Name: {album.title}</p>
                 <p className="album-genre">Genre: {album.genre}</p>
-                <img src={album.image_url} alt="album-image" />
+                <img src={album.image_url} alt="album-background" />
                 { isArtistUser &&
                   <button onClick={() => this.handleClick(album.id)}>Edit Album</button>
                 }

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Link, Route, withRouter } from 'react-router-dom';
-import EditSong from './EditSong';
+import { withRouter } from 'react-router-dom';
 import CreateNewSong from './CreateNewSong';
-import ArtistProfile from './ArtistProfile';
 import { getAlbum, postAlbum, editAlbum, getAlbumSongs, deleteSong, deleteAlbum } from '../services/apiHelper';
 
 
@@ -89,7 +87,7 @@ class EditAlbum extends Component {
     }
 
   async handleNewAlbumSubmit() {
-    const { title, genre, file } = this.state.albumForm;
+    const { title, genre } = this.state.albumForm;
     const userId = this.props.match.params.userId;
     if (title && genre) {
       const formData = new FormData();
@@ -98,6 +96,7 @@ class EditAlbum extends Component {
       formData.append('genre', genre);
       formData.append('userId', userId);
       const resp = await postAlbum(formData);
+      console.log(resp);
       this.setState({
         formError: false,
         albumForm: {
@@ -123,6 +122,7 @@ class EditAlbum extends Component {
         genre
       }
       const updatedAlbum = await editAlbum(userId, albumId, editedAlbum);
+      console.log(updatedAlbum);
       this.setState({
         formError: false,
       })
@@ -138,6 +138,7 @@ class EditAlbum extends Component {
     const albumId = this.state.album.id;
     try {
       const resp = await deleteAlbum(userId, albumId);
+      console.log(resp);
       this.goBackToUser();
     } catch(e) {
       console.log(e);
@@ -149,6 +150,7 @@ class EditAlbum extends Component {
     const albumId = this.state.album.id;
     try {
       const resp = await deleteSong(userId, albumId, songId);
+      console.log(resp);
       this.updateSongs();
     } catch(e) {
       console.log(e);

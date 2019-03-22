@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Link, Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Welcome from './components/Welcome';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ArtistProfile from './components/ArtistProfile';
-import Song from './components/Song';
 import EditAlbum from './components/EditAlbum';
-import EditSong from './components/EditSong';
 import ArtistList from './components/ArtistList';
 import { loginUser, postUser, updateToken } from './services/apiHelper';
 
@@ -146,12 +144,6 @@ class App extends Component {
         )}/>
         <Route exact path="/users/:userId/albumform/:albumId" render={(props) => (
           <EditAlbum
-            user={user}
-            token={token}
-            />
-        )}/>
-        <Route exact path="/users/:userId/albumform/:albumId/songform/:songId" render={(props) => (
-          <EditSong
             user={user}
             token={token}
             />
