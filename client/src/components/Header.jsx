@@ -4,17 +4,24 @@ import { withRouter } from 'react-router';
 class Header extends Component {
   constructor(){
     super();
+    this.handleClickAllUsers = this.handleClickAllUsers.bind(this);
+    this.handleClickMyProfile = this.handleClickMyProfile.bind(this);
   }
 
-  handleClick(id) {
-    this.props.history.push(`/artists/${id}`)
+  handleClickMyProfile(id) {
+    this.props.history.push(`/users/${id}`);
+  }
+
+  handleClickAllUsers(ev) {
+    ev.preventDefault();
+    this.props.history.push('/users');
   }
 
   render() {
     const { user, token, loginData, handleLogin, handleChange, logOut } = this.props;
     return(
       <div className="login">
-        <h2>Beat HostR</h2>
+        <h2 onClick={this.handleClickAllUsers}>Beat HostR</h2>
         { !token &&
           <form onSubmit={handleLogin}>
             <input
@@ -40,7 +47,7 @@ class Header extends Component {
           token &&
           <div className='after-login'>
             <p>{user.artist_name}</p>
-            <p onClick={() => this.handleClick(user.id)}>My Profile</p>
+            <p onClick={() => this.handleClickMyProfile(user.id)}>My Profile</p>
             <p onClick={(ev) => logOut(ev)}>Sign out</p>
           </div>
         }

@@ -28,6 +28,7 @@ class EditAlbum extends Component {
     this.checkForCreate = this.checkForCreate.bind(this);
     this.handleSongDelete = this.handleSongDelete.bind(this);
     this.handleAlbumDelete = this.handleAlbumDelete.bind(this);
+    this.updateSongs = this.updateSongs.bind(this);
   }
 
   async checkForCreate() {
@@ -49,6 +50,18 @@ class EditAlbum extends Component {
       } catch(e) {
         console.error(e);
       }
+    }
+  }
+
+  async updateSongs() {
+    try {
+      const songsResp = await getAlbumSongs(this.props.match.params.userId, this.state.albumId);
+      const songs = songsResp.songs;
+      this.setState({
+        songs
+      })
+    } catch(e) {
+      console.log(e);
     }
   }
 
@@ -84,9 +97,7 @@ class EditAlbum extends Component {
       formData.append('title', title);
       formData.append('genre', genre);
       formData.append('userId', userId);
-      console.log(formData.title);
       const resp = await postAlbum(formData);
-      console.log(resp);
       this.setState({
         formError: false,
         albumForm: {
@@ -94,7 +105,7 @@ class EditAlbum extends Component {
           genre: '',
         },
       });
-      // this.goBackToUser();
+      this.goBackToUser();
     } else {
       this.setState({
         formError: true,
@@ -127,7 +138,7 @@ class EditAlbum extends Component {
     const albumId = this.state.album.id;
     try {
       const resp = await deleteAlbum(userId, albumId);
-      //need to redirect back to artist page
+      this.goBackToUser();
     } catch(e) {
       console.log(e);
     }
@@ -138,7 +149,7 @@ class EditAlbum extends Component {
     const albumId = this.state.album.id;
     try {
       const resp = await deleteSong(userId, albumId, songId);
-      //need to remove song from song array so it will reprint
+      this.updateSongs();
     } catch(e) {
       console.log(e);
     }
@@ -196,10 +207,11 @@ class EditAlbum extends Component {
         { album &&
         <div className="edit-create-song">
           <CreateNewSong
-            albumId={this.state.album.id} />
+            albumId={this.state.album.id}
+            updateSongs={this.updateSongs} />
           <div>
           {songs.map( el => (
-            <div className="editing-songs">
+            <div key={el.id} className="editing-songs">
               <p>{el.title}</p>
               <button id="delete" onClick={(ev) => {
                 ev.preventDefault();
