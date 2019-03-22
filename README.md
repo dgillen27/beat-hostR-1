@@ -1,3 +1,5 @@
+## Deployed at: https://foregoing-celery.surge.sh/
+
 # Beat HostR
 
 ## Project Description
