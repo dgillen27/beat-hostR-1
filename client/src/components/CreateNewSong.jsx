@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { postSong } from '../services/apiHelper';
 
 // Found from medium article

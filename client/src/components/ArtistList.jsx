@@ -35,7 +35,7 @@ class ArtistList extends Component {
   }
 
   render() {
-    const { users, loading } = this.state;
+    const { users } = this.state;
     return (
       <div className="artistList">
         <h2>Checkout Our Artists</h2>

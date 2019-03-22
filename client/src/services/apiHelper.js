@@ -6,7 +6,7 @@ import axios from 'axios';
 //We have put for creating, but update edit for put we need to decide naming scheme
 //////////////////////////////////////////////////////
 
-const BASE_URL = 'http://localhost:4000';
+const BASE_URL = 'https://mighty-thicket-27112.herokuapp.com';
 
 const api = axios.create({
   baseURL: BASE_URL,
