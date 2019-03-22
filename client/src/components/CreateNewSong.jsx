@@ -71,6 +71,7 @@ class CreateNewSong extends Component {
             value={this.state.title} /><br/>
           <label htmlFor="song-file">Upload your song file:</label><br/>
           <input
+            className="submit-it"
             type='file'
             name='song-file'
             label='upload file'
