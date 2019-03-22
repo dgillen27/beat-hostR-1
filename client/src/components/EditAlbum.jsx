@@ -168,65 +168,68 @@ class EditAlbum extends Component {
     const { formError, album, songs } = this.state;
     const albumId = this.state.albumId
     return (
-      <div className="edit-music">
-        <button onClick={() => this.props.history.push(`/users/${this.props.match.params.userId}`)}>Back to Profile</button>
-        <div className="edit-create-album">
-          <h1>{albumId === 'create' ? 'Create a New Album' : 'Edit Your Album'}</h1>
-          <form onSubmit={(ev) => {
-            ev.preventDefault();
-            return (
-            albumId === 'create' ? this.handleNewAlbumSubmit() : this.handleEditAlbumSubmit())}}>
-            <label htmlFor="title">Title:</label><br />
-            <input
-              type="text"
-              onChange={this.handleChange}
-              id="title"
-              name="title"
-              value={title} /><br/>
-            <label htmlFor="genre">Genre:</label><br />
-            <input
-              type="text"
-              onChange={this.handleChange}
-              id="genre"
-              name="genre"
-              value={genre} /><br />
-            {albumId === 'create' &&
-              <div>
-                <label htmlFor="song-file">Upload your album image:</label><br/>
-                <input
-                  type='file'
-                  name='album-file'
-                  label='upload file'
-                  onChange={this.handleFileUpload} /><br/>
-              </div>
-            }
-            <button
-              type="submit" >{albumId === 'create' ? 'Create a New Album' : 'Edit Your Album'}</button>
-          </form>
-            {formError && <p className="input-error-message">Please enter a title AND a genre</p>}
-          </div>
-          { album && <button onClick={this.handleAlbumDelete}>Delete Album</button>}
-        { album &&
-        <div className="edit-create-song">
-          <CreateNewSong
-            albumId={this.state.album.id}
-            updateSongs={this.updateSongs} />
-          <div>
-          {songs.map( el => (
-            <div key={el.id} className="editing-songs">
-              <p>{el.title}</p>
-              <button id="delete" onClick={(ev) => {
-                ev.preventDefault();
-                this.handleSongDelete(el.id)
-                }}>Delete Song
-              </button>
+      <div className="entire-edit">
+        <div className="edit-music">
+          <button id="back-button" onClick={() => this.props.history.push(`/users/${this.props.match.params.userId}`)}>Back to Profile</button>
+          <div className="edit-create-album">
+            <form onSubmit={(ev) => {
+              ev.preventDefault();
+              return (
+              albumId === 'create' ? this.handleNewAlbumSubmit() : this.handleEditAlbumSubmit())}}>
+              <h1>{albumId === 'create' ? 'Create a New Album' : 'Edit Your Album'}</h1>
+              <label htmlFor="title">Title:</label><br />
+              <input
+                type="text"
+                onChange={this.handleChange}
+                id="title"
+                name="title"
+                value={title} /><br/>
+              <label htmlFor="genre">Genre:</label><br />
+              <input
+                type="text"
+                onChange={this.handleChange}
+                id="genre"
+                name="genre"
+                value={genre} /><br />
+              {albumId === 'create' &&
+                <div>
+                  <label htmlFor="song-file">Upload your album image:</label><br/>
+                  <input
+                    type='file'
+                    name='album-file'
+                    label='upload file'
+                    onChange={this.handleFileUpload} /><br/>
+                </div>
+              }
+              <button className="submit-it"
+                type="submit" >{albumId === 'create' ? 'Create a New Album' : 'Edit Your Album'}</button>
+            </form>
+              {formError && <p className="input-error-message">Please enter a title AND a genre</p>}
             </div>
-          ))}
-          </div>
-        </div>}
+            { album && <button id="delete-album" onClick={this.handleAlbumDelete}>Delete Album</button>}
+          { album &&
+          <div className="edit-create-song">
+            <CreateNewSong
+              albumId={this.state.album.id}
+              updateSongs={this.updateSongs} />
+            <div className="around-edit-songs">
+            {songs.map( el => (
+              <div key={el.id} className="editing-songs">
+                <p>{el.title}</p>
+                <button id="delete" onClick={(ev) => {
+                  ev.preventDefault();
+                  this.handleSongDelete(el.id)
+                  }}>Delete Song
+                </button>
+              </div>
+            ))}
+            </div>
+          </div>}
+        </div>
       </div>
     );
   }
 }
+
 
 export default withRouter(EditAlbum);
