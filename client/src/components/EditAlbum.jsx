@@ -200,7 +200,7 @@ class EditAlbum extends Component {
               albumId={this.state.album.id} />
             <div className="around-edit-songs">
             {songs.map( el => (
-              <div className="editing-songs" key={el.id}>
+              <div key={el.id} className="editing-songs">
                 <p>{el.title}</p>
                 <button id="delete" onClick={(ev) => {
                   ev.preventDefault();
