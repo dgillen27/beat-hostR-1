@@ -40,7 +40,7 @@ const User = sequelize.define('user', {
   image_url: {
     type: Sequelize.STRING,
     allowNull: false,
-    defaultValue: 'https://beathostr.s3.amazonaws.com/bucketFolder/1553189692470-lg.png',
+    defaultValue: 'https://s3.amazonaws.com/beathostr/bucketFolder/Sigur_Ro%CC%81s_2013.jpg',
   },
 });
 
