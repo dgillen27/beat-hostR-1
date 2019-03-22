@@ -289,7 +289,7 @@ button:hover {
   margin: auto;
   grid-row-start: 1;
   grid-row-end: 3;
-  border: 1px solid #eee;
+  border: 1px solid #111;
 }
 
 .selected-album {
@@ -346,6 +346,87 @@ audio {
 .albumList button {
   width: 100px;
   height: 25px;
+}
+
+.entire-edit {
+  width: 100vw;
+  min-height: 80vh;
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#back-button {
+  height: 5vh;
+  width: 25%;
+}
+
+#delete-album {
+  width: 25%;
+}
+
+.edit-music {
+  min-height: 80vh;
+  width: 80vw;
+  color: white;
+  background: #222;
+  padding-left: 20px;
+  display: grid;
+  grid-template-columns:
+}
+
+.edit-music input {
+  width: 400px;
+  height: 5vh;
+  border-radius: 5px;
+  outline: none;
+  border: 2px solid transparent;
+}
+
+.edit-music input:focus {
+  border: 2px solid #7C00FF;
+}
+
+.submit-it {
+  height: 30px;
+}
+
+.edit-create-album h1 {
+  font-size: 50px;
+  margin-top: 0;
+  padding-top: 50px;
+  grid-column-start: 1;
+}
+
+.edit-create-album button {
+  margin-top: 0;
+}
+
+.around-edit-songs {
+  display: flex;
+}
+
+.editing-songs {
+  display: block;
+  text-align: center;
+  margin-right: 15px;
+}
+
+.editing-songs button {
+  width: 100%;
+}
+
+.editing-songs p {
+  margin-bottom: 0;
+}
+
+#delete:hover {
+  background: red;
+}
+
+::selection {
+ background: #7C00FF;
 }
 
 @media only screen and (max-width: 700px) {
@@ -468,33 +549,32 @@ audio {
     box-shadow: 2px 5px 6px 1px rgba(0,0,1,0.28);
   }
 
-}
+  .around-edit-songs {
+    flex-direction: column;
+  }
 
-.edit-music {
-  height: 80vh;
-  color: white;
-  background: #222;
-  text-align: center;
-}
+  .entire-edit {
+    text-align: center;
+  }
 
-.edit-create-album h1 {
-  font-size: 50px;
-  margin-top: 0;
-  padding-top: 50px;
-}
+  .edit-music {
+    padding-left: 0;
+  }
 
-.edit-create-album input {
-  margin-right: 5px;
-}
+  .entire-edit input {
+    width: 40vw;
+  }
 
-.editing-songs p {
-  margin-bottom: 0;
-}
+  .entire-edit button {
+    width: 100%;
+  }
 
-#delete:hover {
-  background: red;
-}
+  .editing-songs {
+    width: 100%;
+  }
 
-::selection {
- background: #7C00FF;
+  #delete-album {
+    width: 100%;
+    margin-top: 10px;
+  }
 }
