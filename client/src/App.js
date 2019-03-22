@@ -10,7 +10,7 @@ import Song from './components/Song';
 import EditAlbum from './components/EditAlbum';
 import EditSong from './components/EditSong';
 import ArtistList from './components/ArtistList';
-import { loginUser, postUser } from './services/apiHelper';
+import { loginUser, postUser, updateToken } from './services/apiHelper';
 
 class App extends Component {
   constructor() {
@@ -81,20 +81,28 @@ class App extends Component {
   async handleRegister(ev) {
     ev.preventDefault();
     const { registerData } = this.state
-    const resp = await postUser(registerData);
-    this.setState({
-      token: resp.token,
-      user: resp.user,
-      registerData: {
-        email: '',
-        password: '',
-        artist_name: '',
-      }
-    })
-    this.props.history.push("/users");
+    try {
+      const resp = await postUser(registerData);
+      localStorage.setItem('BeatHostRUser', resp)
+      this.setState({
+        token: resp.token,
+        user: resp.user,
+        registerData: {
+          email: '',
+          password: '',
+          artist_name: '',
+        }
+      })
+      this.props.history.push("/users");
+    } catch(e) {
+      console.log(e);
+    }
   }
 
   logOut(ev) {
+    ev.preventDefault();
+    localStorage.setItem('beatHostRToken', '');
+    updateToken('');
     this.setState({
       user: {},
       token: '',

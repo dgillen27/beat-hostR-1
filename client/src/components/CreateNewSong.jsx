@@ -37,6 +37,7 @@ class CreateNewSong extends Component {
         title: '',
         formError: false,
       })
+      this.props.updateSongs();
     } else {
       this.setState({
         formError: true,

@@ -10,10 +10,13 @@ const BASE_URL = 'http://localhost:4000';
 
 const api = axios.create({
   baseURL: BASE_URL,
+  headers: {
+    authorization: `Bearer ${localStorage.getItem('beatHostRToken')}`,
+  }
 });
 
 const updateToken = (token) => {
-  localStorage.setItem('authToken', token);
+  localStorage.setItem('beatHostRToken', token);
   api.defaults.headers.common.authorization = `Bearer ${token}`;
 };
 
@@ -187,6 +190,7 @@ const postSong = async (formData) => {
 
 //changed names and order to match
 export {
+  updateToken,
   postUser,
   loginUser,
   getUsers,

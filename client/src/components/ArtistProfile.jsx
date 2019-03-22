@@ -11,7 +11,7 @@ class ArtistProfile extends Component {
     this.state = {
       currentArtist: {},
       music: [],
-      isArtistUser: true,
+      isArtistUser: false,
       showMore: '',
     }
 
@@ -21,7 +21,7 @@ class ArtistProfile extends Component {
   }
 
   checkUser() {
-    if (this.props.user.id === parseInt(this.props.match.params.id)) {
+    if (this.props.user.id === parseInt(this.props.match.params.userId)) {
       this.setState({
         isArtistUser: true
       });
@@ -54,9 +54,13 @@ class ArtistProfile extends Component {
   };
 
   async componentDidMount() {
-    await this.getArtist();
-    await this.checkUser();
-    await this.getArtistMusic(this.state.currentArtist.id);
+    try {
+      await this.getArtist();
+      await this.checkUser();
+      await this.getArtistMusic(this.state.currentArtist.id);
+    } catch(e) {
+      console.log(e);
+    }
   }
 
   render() {
