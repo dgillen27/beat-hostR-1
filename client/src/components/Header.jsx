@@ -22,7 +22,7 @@ class Header extends Component {
     return(
       <div className="login">
         <h2 onClick={this.handleClickAllUsers}>Beat HostR</h2>
-        { !token &&
+        { !user &&
           <form onSubmit={handleLogin}>
             <input
               onChange={handleChange}
@@ -44,7 +44,7 @@ class Header extends Component {
           </form>
         }
         {
-          token &&
+          user &&
           <div className='after-login'>
             <p>{user.artist_name}</p>
             <p onClick={() => this.handleClickMyProfile(user.id)}>My Profile</p>

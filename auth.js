@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const SALT = parseInt(process.env.SALT);
-const TOKEN_KEY = process.env.TOKEN_KEY;
+const SALT = 9;
+const TOKEN_KEY = "a secret key"
 
 const hashPassword = async (pass) => {
   const digest = await bcrypt.hash(pass, SALT);

@@ -6,17 +6,18 @@ import axios from 'axios';
 //We have put for creating, but update edit for put we need to decide naming scheme
 //////////////////////////////////////////////////////
 
-const BASE_URL = 'https://mighty-thicket-27112.herokuapp.com';
+// const BASE_URL = 'https://mighty-thicket-27112.herokuapp.com';
+const BASE_URL = "http://localhost:4000"
 
 const api = axios.create({
   baseURL: BASE_URL,
   headers: {
-    authorization: `Bearer ${localStorage.getItem('beatHostRToken')}`,
+    authorization: `Bearer ${localStorage.getItem('authToken')}`,
   }
 });
 
 const updateToken = (token) => {
-  localStorage.setItem('beatHostRToken', token);
+  localStorage.setItem('authToken', token);
   api.defaults.headers.common.authorization = `Bearer ${token}`;
 };
 

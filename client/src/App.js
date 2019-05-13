@@ -9,13 +9,14 @@ import ArtistProfile from './components/ArtistProfile';
 import EditAlbum from './components/EditAlbum';
 import ArtistList from './components/ArtistList';
 import { loginUser, postUser, updateToken } from './services/apiHelper';
+const jwt = require('jsonwebtoken');
 
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
-      user: {},
+      user: null,
       token: '',
       loginData: {
         email: '',
@@ -81,10 +82,10 @@ class App extends Component {
     const { registerData } = this.state
     try {
       const resp = await postUser(registerData);
-      localStorage.setItem('BeatHostRUser', resp)
+      localStorage.setItem('authToken', resp.token)
       this.setState({
         token: resp.token,
-        user: resp.user,
+        user: jwt.decode(resp.token),
         registerData: {
           email: '',
           password: '',
@@ -99,16 +100,26 @@ class App extends Component {
 
   logOut(ev) {
     ev.preventDefault();
-    localStorage.setItem('beatHostRToken', '');
+    localStorage.clear();
     updateToken('');
     this.setState({
-      user: {},
+      user: null,
       token: '',
     });
     this.props.history.push(`/`);
   }
 
-  componentDidMount() {
+  async setCurrentUser() {
+    const user = jwt.decode(localStorage.getItem("authToken"))
+    this.setState({
+      user: user
+    })
+    console.log(jwt.decode(localStorage.getItem("authToken")));
+    console.log(this.state.user);
+  }
+
+  async componentDidMount() {
+    localStorage.getItem("authToken") && await this.setCurrentUser();
   }
 
   render() {

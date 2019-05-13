@@ -20,7 +20,7 @@ const buildAuthResponse = (user) => {
   };
 };
 
-usersRouter.get('/', restrict, async (req, res) => {
+usersRouter.get('/', async (req, res) => {
   try {
     const users =  await User.findAll();
     res.json({ users });
